@@ -1,0 +1,32 @@
+.subheading {
+  padding: 8px 0;
+  border-bottom: 1px solid black;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.product-content {
+  width: 500px;
+}
+
+.add_wishlist_btn_container {
+  width: max-content;
+  margin: 1.25rem auto;
+
+  .btn:hover {
+    background-color: rgba(13, 90, 90, 0.943);
+  }
+}
+
+
+
+.total-compute-section {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 2rem auto;
+}
+
+.img-selector__active {
+  border: 1.5px solid #000000;
+}

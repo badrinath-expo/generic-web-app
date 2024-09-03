@@ -1,25 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import AppSelector from './components/AppSelector';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import Analytics from './pages/Analytics';
+import About from './pages/About';
+import Home from './Home';
+import Portfolio from './pages/Portfolio';
+import Products from './pages/Ecommerce/Products';
+import OttPlatform from './pages/OttPlatform';
+import SelectedProduct from './pages/Ecommerce/SelectedProduct';
+import Cart from './pages/Ecommerce/Cart';
+import EcommerceHome from './pages/Ecommerce/EcommerceHome';
+
 
 function App() {
+  const navigate = useNavigate();
+  // useEffect(() => navigate('cart'), [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path='/' element={<Home />}>
+      <Route path="analytics" element={<Analytics />} />
+      <Route path="portfolio" element={<Portfolio />} />
+      <Route path="e-commerce" element={<EcommerceHome />} />
+      <Route path="e-commerce/products" element={<Products />} />
+      <Route path="product/:id" element={<SelectedProduct />} />
+      <Route path="cart" element={<Cart />} />
+      <Route path="ott-platform" element={<OttPlatform />} />
+      <Route path="about" element={<About />} />
+      </Route>
+    </Routes>
   );
 }
 

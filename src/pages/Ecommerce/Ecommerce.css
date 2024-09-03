@@ -1,0 +1,36 @@
+.products-wrapper {
+  height: 88vh;
+  margin-right: 1rem;
+  overflow: auto;
+}
+
+
+.cart-icon {
+  background-color: whitesmoke;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
+.price {
+  padding-left: 2px;
+  color: black;
+  margin-left: auto;
+  margin-bottom: 0;
+  margin-top: auto;
+  font-family: "Open Sans", sans-serif;
+  letter-spacing: -2%;
+
+  .price-value {
+    font-size: 22px;
+    font-family: "PT mono", sans-serif;
+    letter-spacing: -8%;
+
+  }
+}
+
+.img-container {
+  margin: 0 auto;
+}
+
