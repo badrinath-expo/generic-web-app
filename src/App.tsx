@@ -16,7 +16,7 @@ import EcommerceHome from './pages/Ecommerce/EcommerceHome';
 
 function App() {
   const navigate = useNavigate();
-  // useEffect(() => navigate('cart'), [])
+
   return (
     <Routes>
       <Route path='/' element={<Home />}>
