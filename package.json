@@ -1,5 +1,5 @@
 {
-  "homepage": "https://badrinath-pillalamarri.github.io/generic-web-app",
+  "homepage": "http://badrinath-pillalamarri.github.io/generic-web-app",
   "name": "generic-web-app",
   "version": "0.1.0",
   "private": true,
@@ -30,7 +30,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "predeploy":"yarn build",
+    "predeploy":"npm run build",
     "deploy":"gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
