@@ -1,6 +1,7 @@
-import React, { FC, useMemo } from 'react';
+import React, { CSSProperties, FC, useMemo } from 'react';
 import Navbar from './components/Navbar';
 import styled from 'styled-components';
+import css from 'classnames';
 import { FaAngleRight } from "react-icons/fa6";
 import './Ecommerce.css';
 //carousel
@@ -8,6 +9,9 @@ import clothing from '../../assets/carousel/clothing.jpg';
 import accessories from '../../assets/carousel/accessories.jpg'
 import hats from '../../assets/carousel/hats.jpg';
 import petswag from '../../assets/carousel/petswag.jpg';
+import smartphones from '../../assets/carousel/smartphones.jpg';
+import fashion from '../../assets/carousel/fashion.jpg';
+import tech from '../../assets/carousel/tech.jpg';
 
 //brand logos
 import adidas from '../../assets/brand_logos/Adidas_Logo.svg';
@@ -30,6 +34,8 @@ import grid_smartphone from '../../assets/grids/smartphone.svg';
 import grid_beauty from '../../assets/grids/beauty.svg';
 
 import grid_bg from '../../assets/grids/bg.jpg';
+import { IoMenu } from 'react-icons/io5';
+
 
 
 const HomeContainer = styled.div`
@@ -46,12 +52,12 @@ const CarouselContainer = styled.div`
 const CarouselItem = styled.div`
   flex:1;
   height: 450px;
-
+  box-shadow: 0px 5px 12px 0px rgba(1, 1, 1, 0.25);
   border-radius: 8px;
   display: flex;
   height: 100%;
   position: relative;
-
+  border:1px solid #ccc;
 
   .carousel_item {
     object-fit: cover;
@@ -67,19 +73,28 @@ const CarouselItem = styled.div`
   }
 
   .title{
-    margin: auto 8px 8px auto;
-    font-size:32px;
+    font-size:22px;
     font-weight: 350;
-    color:#f4f3f3;
+    color:#000000;
+    padding:4px 8px;
+    border-radius: 8px;
     cursor: pointer;
     position: absolute;
-    bottom: -2px;
-    right: 3px;
+    bottom: 0;
+    left:auto;
+    right: auto;
+    margin:0 auto;
+
+    background: rgba(255, 255, 255, 0.336);
+    /* box-shadow: 0 15px 10px rgba(148, 148, 148, .1); */
+    -webkit-backdrop-filter: blur(6.3px);
+    backdrop-filter: blur(6.3px);
   }
 
   &:hover{
     flex:4;
-    transition: all 0.5s linear;
+    transition: all 0.5s linear; 
+    box-shadow: 0px 20px 12px 0px rgba(1, 1, 1, 0.25);
   }
 `
 
@@ -88,6 +103,7 @@ const SliderContainer = styled.div`
   gap: 3.5rem;
   overflow: auto;
   scrollbar-width: none;
+  width: 100%;
   .slider-img {
     width: 80px;
     aspect-ratio: 3/2;
@@ -107,13 +123,19 @@ const GridContainer = styled.div`
   .q {
     width: 320px;
     border: 1px solid #ccc;
-    margin: 4px;
+    margin: 8px;
     border-radius: 8px;
+    box-shadow: 0px 0px 12px 0px rgba(1, 1, 1, 0.25);
+    transition: all 0.3s linear;
+
+    &:hover{
+      box-shadow: 0px 10px 12px 0px rgba(17, 17, 18, 0.356);
+    }
   }
 
   .q1,
   .q4 {
-    height: 250px;
+    height: 230px;
   }
 
   img {
@@ -148,8 +170,8 @@ cursor: pointer;
 
 const OrSeparatorContainer = styled.div`
   .line{
-    width:120px;
-    height: 2px;
+    width:125px;
+    height: 1.5px;
     background-color: #d0cece;
   }
 `
@@ -161,27 +183,27 @@ const EcommerceHome = () => {
     return [
       {
         img_url: clothing,
-        title: 'Apparel'
+        title: 'Clothing'
       },
       {
         img_url: accessories,
         title: 'Accessories'
       },
       {
-        img_url: hats,
-        title: 'Hats/Glowes'
+        img_url: fashion,
+        title: 'Beauty'
       },
       {
-        img_url: petswag,
-        title: 'Pet swag'
+        img_url: tech,
+        title: 'Tech'
       },
     ]
   }, [])
 
   const Carousel = () => {
-    return <CarouselContainer className='fl'>
+    return <CarouselContainer className='fl fl-c-m carousel-m'>
       {carouselItems.map((carouselItem) => {
-        return <CarouselItem>
+        return <CarouselItem className='carousel-item-m' key={carouselItem.img_url}>
           <div className="title fl ac">{carouselItem.title}</div>
           <img className='carousel_item' src={carouselItem.img_url} />
         </CarouselItem>
@@ -191,9 +213,9 @@ const EcommerceHome = () => {
 
   const LogoSlider = () => {
     const brandLogos = [adidas, gucci, apple, h_m, gillete, xiaomi, lg, lego, garnier, castrol, loreal]
-    return <SliderContainer className='fl g2 js'>
+    return <SliderContainer className='fl g4 js'>
       {brandLogos.map(brandLogo => {
-        return <img className='slider-img' src={brandLogo} />
+        return <img className='slider-img' key={brandLogo.toString()} src={brandLogo} />
       })}
     </SliderContainer>
   }
@@ -230,7 +252,7 @@ or
   return (
     <HomeContainer className='fl fl-c'>
       <Navbar />
-      <div style={{paddingTop:80}} />
+      <div style={{paddingTop:80}} className='m-hide' />
       <Carousel />
       <LogoSlider />
       <Grid />

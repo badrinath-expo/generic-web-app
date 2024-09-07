@@ -25,8 +25,8 @@ const AppSelector: FC = () => {
     return (
         <div className='fl rg-1 menu-items-container'>
             <div className="logo"></div>
-            {menuItems && menuItems.map((item, index) => (<a className={css({'selected-route':(location.pathname.includes(item.url))})} key={index} onClick={()=> navigate(item.url)}>{item.title}</a>))}
-            {true?<IoIosArrowUp/> :<IoIosArrowDown />}
+            {/* {menuItems && menuItems.map((item, index) => (<a className={css({'selected-route':(location.pathname.includes(item.url))})} key={index} onClick={()=> navigate(item.url)}>{item.title}</a>))} */}
+            {/* {true?<IoIosArrowUp/> :<IoIosArrowDown />} */}
         </div>
     )
 }

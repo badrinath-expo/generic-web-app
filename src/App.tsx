@@ -19,7 +19,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<Home />}>
+      <Route path='/' element={<EcommerceHome />}>
       <Route path="analytics" element={<Analytics />} />
       <Route path="portfolio" element={<Portfolio />} />
       <Route path="e-commerce" element={<EcommerceHome />} />

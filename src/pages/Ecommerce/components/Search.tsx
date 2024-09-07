@@ -4,19 +4,19 @@ import css from 'classnames';
 import { LuSearch } from "react-icons/lu";
 const SearchContainer = styled.div`
   align-items: center;
-  /* border: 1px solid #efeeee; */
   border-radius: 8px;
   width: max-content;
   padding: 4px 0.75rem;
   height: 32px;
   color: #ccc;
-  background: rgba(219, 219, 219, 0.40);
+  background: hsla(0, 0%, 52.54901960784314%, 0.4);
+
 
   input {
     background-color: transparent;
     border: 0px;
     font-size: 14px;
-    color: #bebcbc;
+    color: #5f5f5f;
 
     width: max-content;
     &:hover,
@@ -28,12 +28,12 @@ const SearchContainer = styled.div`
 
 
     &::placeholder{
-      color: #ccc;
+      color: #585858;
     }
   }
 
   .search-icon {
-    color: #ffffff;
+    color: #282828;
     align-self: center;
 
     &:hover{
@@ -54,7 +54,7 @@ const inputChangeHandler = (e:any)=> setInputText(e.target.value)
 
 
   return (
-    <SearchContainer className='fl'>
+    <SearchContainer className={css('fl',className)}>
       <input placeholder={placeHolderText??'Search...'} onChange={inputChangeHandler} />
     <LuSearch className={css('search-icon',{'hide':!inputText})} onClick={()=> (console.log(inputText),onSearch(inputText))} />
     </SearchContainer>
