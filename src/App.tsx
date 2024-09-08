@@ -19,7 +19,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<EcommerceHome />}>
+      <Route path='/' element={<EcommerceHome />} />
       <Route path="analytics" element={<Analytics />} />
       <Route path="portfolio" element={<Portfolio />} />
       <Route path="e-commerce" element={<EcommerceHome />} />
@@ -28,7 +28,6 @@ function App() {
       <Route path="cart" element={<Cart />} />
       <Route path="ott-platform" element={<OttPlatform />} />
       <Route path="about" element={<About />} />
-      </Route>
     </Routes>
   );
 }

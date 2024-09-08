@@ -1,8 +1,7 @@
-import React, { CSSProperties, FC, useMemo } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import Navbar from './components/Navbar';
 import styled from 'styled-components';
-import css from 'classnames';
-import { FaAngleRight } from "react-icons/fa6";
+import css from 'classnames'
 import './Ecommerce.css';
 //carousel
 import clothing from '../../assets/carousel/clothing.jpg';
@@ -34,7 +33,7 @@ import grid_smartphone from '../../assets/grids/smartphone.svg';
 import grid_beauty from '../../assets/grids/beauty.svg';
 
 import grid_bg from '../../assets/grids/bg.jpg';
-import { IoMenu } from 'react-icons/io5';
+
 
 
 
@@ -120,6 +119,7 @@ const GridContainer = styled.div`
   width: 100%;
   padding: 5%;
   z-index: 5;
+
   .q {
     width: 320px;
     border: 1px solid #ccc;
@@ -154,7 +154,7 @@ const AuthButtonContainer = styled.div`
   padding: 8px 1rem;
   border-radius: 8px;
   margin:8px auto;
-  width: min(90vw,320px);
+  width: min(90vw,250px);
   text-align: center;
   background-color: #000;
   color:#fff;
@@ -164,14 +164,15 @@ cursor: pointer;
   }
 
   &:hover{
-  background-color: #3e355e;
+  background-color: #212121f3;
   }
 `
 
 const OrSeparatorContainer = styled.div`
+justify-content: center;
   .line{
     width:125px;
-    height: 1.5px;
+    height: 1.25px;
     background-color: #d0cece;
   }
 `
@@ -201,9 +202,11 @@ const EcommerceHome = () => {
   }, [])
 
   const Carousel = () => {
+  const [activeCarouselItem,setActiveCarouselItem] = useState(-1);
+
     return <CarouselContainer className='fl fl-c-m carousel-m'>
-      {carouselItems.map((carouselItem) => {
-        return <CarouselItem className='carousel-item-m' key={carouselItem.img_url}>
+      {carouselItems.map((carouselItem,index) => {
+        return <CarouselItem className={css('carousel-item-m',{'active-carousel-item-m': index == activeCarouselItem})} key={carouselItem.img_url} onClick={() => setActiveCarouselItem(index)}>
           <div className="title fl ac">{carouselItem.title}</div>
           <img className='carousel_item' src={carouselItem.img_url} />
         </CarouselItem>
@@ -213,7 +216,7 @@ const EcommerceHome = () => {
 
   const LogoSlider = () => {
     const brandLogos = [adidas, gucci, apple, h_m, gillete, xiaomi, lg, lego, garnier, castrol, loreal]
-    return <SliderContainer className='fl g4 js'>
+    return <SliderContainer className='fl g4 js g15-m'>
       {brandLogos.map(brandLogo => {
         return <img className='slider-img' key={brandLogo.toString()} src={brandLogo} />
       })}
@@ -222,7 +225,7 @@ const EcommerceHome = () => {
 
 
   const Grid = () => {
-    return <GridContainer className='fl' style={{backgroundImage:`url(${grid_bg})`}}>
+    return <GridContainer className='fl grid-container-m' style={{backgroundImage:`url(${grid_bg})`}}>
       <div className='m-l-auto'>
         <img className="q q1" src={grid_shoe} />
         <img className="q" src={grid_smartphone} />
@@ -243,22 +246,24 @@ const AuthButton:FC<{title:string;}> = ({title}) =>{
 
 
 const OrSeparator = ()=>{
-  return <OrSeparatorContainer className='fl ac g1'>
+  return <OrSeparatorContainer className='fl ac g1 m-h-auto al-s-m'>
 <div className='line'/>
 or
 <div className='line'/>
   </OrSeparatorContainer>
 }
   return (
-    <HomeContainer className='fl fl-c'>
+    <HomeContainer className='fl fl-c fl1 ov-hidden'>
       <Navbar />
-      <div style={{paddingTop:80}} className='m-hide' />
+      <div style={{paddingTop:80}} />
+      <div className="fl1 ov-auto">
       <Carousel />
       <LogoSlider />
       <Grid />
       <AuthButton title='Login'/>
       <OrSeparator/>
       <AuthButton title='SignUp'/>
+      </div>
     </HomeContainer>
   )
 }

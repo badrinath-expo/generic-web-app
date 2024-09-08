@@ -2,25 +2,16 @@ import { DotLoader } from 'react-spinners';
 import styled, { CSSProperties } from 'styled-components';
 
 
-const LoaderContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  z-index: 99;
-  background-color: white;
-`
-
 const override: CSSProperties = {
     display: "block",
-    margin: "auto",
-    borderColor: "red"
+    margin:"auto"
 };
 
 const Loader = () => {
 
     return (
-        <LoaderContainer>
             <DotLoader
+            className='m-h-auto'
                 color={'#303030'}
                 loading={true}
                 cssOverride={override}
@@ -28,7 +19,6 @@ const Loader = () => {
                 aria-label="Loading Spinner"
                 data-testid="loader"
             />
-        </LoaderContainer>
     )
 }
 

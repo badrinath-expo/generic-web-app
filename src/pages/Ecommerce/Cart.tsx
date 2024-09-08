@@ -12,6 +12,7 @@ import Price from './components/Price';
 import CountIndicator from './components/CountIndicator';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { updateProductHandler,removeProductHandler } from './utils';
+import Navbar from './components/Navbar';
 
 export interface iCartItems {
   [id: number]: iProduct & { count: number };
@@ -21,7 +22,7 @@ const CartItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding:2%;
+  padding:5rem 2% 2%;
 
 .item-title{
   font-size: 18px;
@@ -137,7 +138,9 @@ useEffect(()=>{
   
 
   return (
-    <CartItemsContainer>
+    <>
+     <Navbar/>
+    <CartItemsContainer>  
       <CartHeader className='fl ac js'>
         <div className="title">Cart</div>
         <Price text='Total' value={cartTotalValue}/>
@@ -152,10 +155,11 @@ useEffect(()=>{
           </div>
           <CountIndicator product={cartItem[1]} cartItems={cartItems}/>
           <Price className='item-price' text='sub total' value={cartItem[1].price*cartItem[1].count}/>
-          <RiDeleteBin6Line className='cursor-pointer delete-cta' onClick={()=>removeProductHandler(cartItem[1].id,cartItems)} />
+          <RiDeleteBin6Line className='cp delete-cta' onClick={()=>removeProductHandler(cartItem[1].id,cartItems)} />
         </CartItemWrapper>
       })}
-    </CartItemsContainer>);
+    </CartItemsContainer>
+    </>);
 }
 
 

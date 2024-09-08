@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import css from "classnames";
 import Search from "./Search";
@@ -11,6 +11,7 @@ import dollar_icon from "../../../assets/dollar_icon.svg";
 import './Navbar.css';
 import logo from "../../../assets/Designer.png";
 import { IoMenu } from "react-icons/io5";
+import { useLocation, useNavigate } from "react-router-dom";
 const NavbarContainer = styled.div`
 
   background: rgba(255, 255, 255, 0.336);
@@ -159,41 +160,53 @@ const CartButtonContainer = styled.div`
 interface iNavItem {
   id: number;
   title: string;
-  isActive: boolean;
+  path:string;
 }
 const Navbar = () => {
   const [activeNavItem, setActiveNavItem] = useState<number>(0);
   const cartItems = useAppSelector(getCartItems);
   const [showMenuButton, setShowMenuButton] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const navItems = useMemo(
     () => [
       {
-        title: "Apparel",
-        to: "/Apparel",
-      },
+          title: "Home",
+           to: "/e-commerce",
+       },
       {
-        title: "Accessories",
-        to: "/Apparel",
-      },
-      {
-        title: "Hats/Gloves",
-        to: "/Apparel",
+        title: "Products",
+        to: "/e-commerce/products",
+      // },
+      // {
+      //   title: "Accessories",
+      //   to: "/Apparel",
+      // },
+      // {
+      //   title: "Hats/Gloves",
+      //   to: "/Apparel",
       },
     ],
     []
   );
 
-  const NavItem: FC<iNavItem> = ({ title, isActive, id }) => {
+
+  useEffect(()=>{
+  setShowMenuButton(true)
+  },[location])
+
+  const NavItem: FC<iNavItem> = useCallback(({ title, id,path }) => {
+    const isActive = (id === activeNavItem)
     return (
-      <NavItemContainer className="menu-item-separator" onClick={() => setActiveNavItem(id)}>
-        <div className={css("title", { "active-title": isActive })}>
+      <NavItemContainer className="menu-item-separator" onClick={() => (setActiveNavItem(id),navigate(path))}>
+        <div className={css("title", { "active-title": isActive})}>
           {title}
         </div>
         {isActive && <div className="indicator" />}
       </NavItemContainer>
     );
-  };
+  },[activeNavItem]);
 
   const Balance: FC<{ value: number }> = ({ value }) => {
     return (<div className="fl-m m-h-auto-m  ac-m g1">
@@ -213,7 +226,7 @@ const Navbar = () => {
 
   const CartButton: FC<{ cartCount: number }> = ({ cartCount }) => {
     return (
-      <CartButtonContainer className="m-h-auto-m fl-m ac-m g1-m">
+      <CartButtonContainer className="cp m-h-auto-m fl-m ac-m g1-m" onClick={()=> navigate('/cart')}>
         <div className="cart-icon-part">
           <img className="cart-img" src={cart_img} width={40} height={40} />
           <div className="cart-count">{cartCount}</div>
@@ -225,12 +238,21 @@ const Navbar = () => {
 
   return (
     <>
+    <div className="fl al-s d-hide m-flex nav-bg">
       <IoMenu size={32} className={css("menu_icon", { 'm-show': showMenuButton })} onClick={() => setShowMenuButton(false)} />
+      <img className="logo" src={logo} alt="" width={80} />
+      <Search
+            className="search-box search_box-m"
+            onSearch={(inputText: string) => {
+              console.log(inputText);
+            }}
+          />
+      </div>
       <NavbarContainer className={css("fl g-1 fl-c-m navbar_container_m animate-this-element m-hide", { 'm-show': !showMenuButton })}>
         <div className="fl g1 fl-c-m">
           <SlClose className={css('close_icon', { 'm-show': !showMenuButton })} size={24} onClick={() => setShowMenuButton(true)} />
-          <div className="fl">
-            <img className="logo m-auto-m" src={logo} alt="" width={80} />
+          <div className="fl" onClick={()=> navigate('/e-commerce')}>
+            <img className="logo logo-m m-auto-m" src={logo} alt="" width={80} />
           </div>
           <NavActionsContainer className="fl fl-c-m g1-m">
             {navItems.map((navItem, index) => {
@@ -238,8 +260,8 @@ const Navbar = () => {
                 <NavItem
                   id={index}
                   key={index}
-                  isActive={index === activeNavItem}
                   title={navItem.title}
+                  path={navItem.to}
                 />
               );
             })}

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 import css from 'classnames';
 import { LuSearch } from "react-icons/lu";
@@ -56,7 +56,7 @@ const inputChangeHandler = (e:any)=> setInputText(e.target.value)
   return (
     <SearchContainer className={css('fl',className)}>
       <input placeholder={placeHolderText??'Search...'} onChange={inputChangeHandler} />
-    <LuSearch className={css('search-icon',{'hide':!inputText})} onClick={()=> (console.log(inputText),onSearch(inputText))} />
+    <LuSearch className={css('search-icon',{'vis-hide':!inputText})} onClick={()=> (console.log(inputText),onSearch(inputText))} />
     </SearchContainer>
   )
 }

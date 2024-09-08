@@ -11,12 +11,15 @@
   outline: none;
 }
 
+#root{
+  display: flex;
+  flex-direction: column;
+}
+
 body {
   height: 100vh;
-  width: 100vw;
   font-size: 16px;
   margin: 0;
-  /* overflow: hidden; */
   font-family: "Open sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
@@ -43,6 +46,7 @@ code {
 .fl-r {
   flex-direction: row !important;
 }
+
 .fl-c {
   flex-direction: column !important;
 }
@@ -95,11 +99,14 @@ img {
   padding-top: 2rem;
 }
 
-.fl-1-1-auto {
+.pt-5 {
+  padding-top:5rem;
+}
+.fl1 {
   flex: 1 1 auto;
 }
 
-.cursor-pointer {
+.cp {
   cursor: pointer;
 }
 
@@ -110,22 +117,26 @@ img {
 .al-fl-end {
   align-items: flex-end;
 }
+
 /* width */
 ::-webkit-scrollbar {
   width: 8px;
   background-color: transparent;
+  z-index: -10;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   /* background: transparent; */
   background: transparent !important;
+  z-index: -10;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #c6c6c6;
   border-radius: 8px;
+  z-index: -10;
 }
 
 /* Handle on hover */
@@ -133,13 +144,14 @@ img {
   background: #555;
 }
 
-.hide {
+.vis-hide {
   visibility: hidden;
 }
 
 .m-l-auto {
   margin-left: auto;
 }
+
 .m-r-auto {
   margin-right: auto;
 }
@@ -154,21 +166,31 @@ img {
   margin-bottom: auto;
 }
 
-.hide{
-  display:none;
+.hide {
+  display: none;
+}
+
+
+.ov-auto {
+  overflow: auto;
+}
+
+.ov-hidden {
+  overflow: hidden !important;
 }
 
 /* .menu-item-separator{
   display: none;
 } */
 @media only screen and (max-width: 600px) {
-*{
-  transition: all 0.3s linear;
-}
+  * {
+    transition: all 0.3s linear;
+  }
 
-.hide{
-display: block !important;
-}
+  .hide {
+    display: block !important;
+  }
+
   html,
   body,
   #root {
@@ -179,10 +201,11 @@ display: block !important;
     flex-direction: column;
   }
 
-  .ac-m{
+  .ac-m {
     align-items: center;
   }
-  .fl-m{
+
+  .fl-m {
     display: flex;
   }
 
@@ -214,23 +237,36 @@ display: block !important;
   }
 
   .g1-m {
-    gap: 1rem;
+    gap: 1rem !important;
   }
 
-  .mt-1-m{
-    margin-top:1rem;
+  .g15-m {
+    gap: 1rem !important;
+  }
+
+  .mt-1-m {
+    margin-top: 1rem;
+  }
+
+  
+  .pt-0-m {
+    padding-top: 0;
   }
 
   .p-0-m {
-    padding-top:0;
+    padding: 0;
   }
-
 
   @keyframes name-of-animation {
-    0%    { opacity: 0; }
-    100%  { opacity: 1; }
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
   }
-  
+
   .animate-this-element {
     animation: name-of-animation 0.3s linear;
   }

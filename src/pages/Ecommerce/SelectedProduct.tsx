@@ -12,6 +12,8 @@ import { getCartItems } from "../../Redux/cartSlice";
 import { useAppSelector } from "../../Redux/hooks";
 import Price from "./components/Price";
 import CountIndicator from "./components/CountIndicator";
+import Navbar from "./components/Navbar";
+import Loader from "../../components/Loader";
 
 interface iPrice {
   className?: string;
@@ -118,13 +120,14 @@ const SelectedProduct = () => {
   const cartItems = useAppSelector(getCartItems)
   const countRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0)
+  const [loading,setLoading] = useState(true)
 
 
   useEffect(() => {
     id &&
       fetchProducts(parseInt(id)).then((res) => {
         setProduct(res as iProduct);
-      });
+      }).catch(err => console.log(err)).finally(()=> setLoading(false));
   }, [id]);
 
 
@@ -145,14 +148,19 @@ return product && <CountIndicator product={product} cartItems={cartItems} />
 
 
   return (
-    <SelectedProductWrapper onScroll={handleScroll}>
+    <>
+        <Navbar/>
+
+    <SelectedProductWrapper onScroll={handleScroll} className="pt-5 selected-product-wrapper-m">
+  
       <BackIconContainer onClick={() => navigate("/e-commerce/products")}>
         <LiaArrowLeftSolid size={32} />
       </BackIconContainer>
       <Price className="only-price" value={product?.price as number} />
-      {product && (
-        <div className="fl g3">
-          <div className="fl pt-2">
+      {loading && <Loader/>}
+      {!loading && product && (
+        <div className="fl g3 fl-c-m g1-m">
+          <div className="fl pt-2 p-0-m">
             <div>
               {product.images.map((imgUrl, index) => (
                 <ImgSelector
@@ -165,16 +173,18 @@ return product && <CountIndicator product={product} cartItems={cartItems} />
                 />
               ))}
             </div>
-            <div className="img-container">
+            <div className="img-container img-container_m">
               <img src={product.images[activeImageIndex]} alt={product.title} />
             </div>
           </div>
+        
           <div className="product-content">
             <div className="title">{product.title}</div>
             <div className="sku">
               <span>SKU</span>
               {product.sku}
             </div>
+            <div className="separator hide"/>
             <div className="fl ac g-3 total-compute-section">
               {computeCountIndicator()}
                 <Price text="total" value={product?.price *cartItems[product.id]?.count || product.price} />
@@ -184,12 +194,12 @@ return product && <CountIndicator product={product} cartItems={cartItems} />
               <button className="btn" onClick={() => addProductHandler(product, cartItems)}>
                 Add to Cart
               </button>
-              {/* <button className="btn" onClick={handleBuyNow}>
-                Buy Now
-              </button> */}
+     
             </div>
-            <div className="subheading">Overview</div>
+            <div className="subheading m-h-auto-m">Overview</div>
             <div className="content">{product.description}</div>
+
+
             {/* <div>{product.price}</div> */}
             {/* <button onClick={handleAddToCart}>Add to Cart</button>
             <button onClick={handleBuyNow}>Buy Now</button>
@@ -198,7 +208,8 @@ return product && <CountIndicator product={product} cartItems={cartItems} />
           </div>
         </div>
       )}
-    </SelectedProductWrapper>
+    </SelectedProductWrapper> 
+     </>
   );
 };
 

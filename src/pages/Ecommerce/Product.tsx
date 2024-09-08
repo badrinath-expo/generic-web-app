@@ -96,10 +96,10 @@ const Product: FC<{ product: iProduct, count: number; }> = ({ product, count }) 
     navigate(`/product/${product.id}`)
   }
   return (
-    <ProductContainer className='fl fl-c' key={product.id} onClick={handleProductClick}>
+    <ProductContainer className='fl fl-c m-h-auto-m products-container-m' key={product.id} onClick={handleProductClick}>
       <RatingContainer><span>{product.rating.toString().slice(0, 3)}</span><FaStar color='#4D4D4D' /></RatingContainer>
       <div className="img-container"><img src={product.images[0]} alt={product.title} /></div>
-      <div className="fl fl-c fl-1-1-auto">
+      <div className="fl fl-c fl1">
         <LineDiv>
           <WishlistIconWrapper><FaRegHeart className='heart-icon' /></WishlistIconWrapper>
         </LineDiv>

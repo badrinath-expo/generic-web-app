@@ -15,10 +15,12 @@ import { addProductHandler, updateProductHandler } from './utils';
 import { useAppSelector } from '../../Redux/hooks';
 import cartSlice, { getCartItems } from '../../Redux/cartSlice';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Loader from '../../components/Loader';
 const EcommerceWrapper = styled.div`
   width: 100%;
   height: 100%;
-  padding: 1rem;
+  /* padding: 1rem; */
 `;
 
 const Products = () => {
@@ -26,19 +28,26 @@ const Products = () => {
   const [products, setProducts] = React.useState<iProduct[] | null>(null);
   // const cartItems = useSelector<RootState, iCartItems>(state => getCartItems(state.UI))
   const cartItems = useAppSelector(getCartItems)
+  const [loading,setLoading] = useState(true)
 
   useEffect(() => {
-    fetchProducts().then((data) => setProducts(data.products as iProduct[])).catch(err => console.log(err))
+
+    fetchProducts().then((data) => setProducts(data.products as iProduct[])).catch(err => console.log(err)).finally(() => setLoading(false))
     return () => { }
   }, [])
 
 
   return (
     <EcommerceWrapper className='fl jc'>
+      <Navbar/>
+   
       <div className='fl wr g1 p1 products-wrapper'>
-        {products && products.map((product: iProduct) => <Product product={product} key={product.id} count={(cartItems && cartItems[product.id]) ? (cartItems[product.id]?.count) : 0} />)}
-      </div>
-      <img className='cart-icon' onClick={() => navigate('/cart')} src={cart_icon} alt="cart" width={280} height={50} />
+      {loading ? <Loader/> :<> 
+      {products && products?.map((product: iProduct) => <Product product={product} key={product.id} count={(cartItems && cartItems[product.id]) ? (cartItems[product.id]?.count) : 0} />)}
+       </>}
+        </div>
+    
+      {/* <img className='cart-icon' onClick={() => navigate('/cart')} src={cart_icon} alt="cart" width={280} height={50} /> */}
     </EcommerceWrapper>
   )
 };
