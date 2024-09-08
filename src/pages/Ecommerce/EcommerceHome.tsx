@@ -1,101 +1,104 @@
-import React, { FC, useMemo, useState } from 'react';
-import Navbar from './components/Navbar';
-import styled from 'styled-components';
-import css from 'classnames'
-import './Ecommerce.css';
+import React, { FC, useMemo, useState } from "react";
+import Navbar from "./components/Navbar";
+import styled from "styled-components";
+import css from "classnames";
+import "./Ecommerce.css";
+import { BsChevronRight } from "react-icons/bs";
 //carousel
-import clothing from '../../assets/carousel/clothing.jpg';
-import accessories from '../../assets/carousel/accessories.jpg'
-import hats from '../../assets/carousel/hats.jpg';
-import petswag from '../../assets/carousel/petswag.jpg';
-import smartphones from '../../assets/carousel/smartphones.jpg';
-import fashion from '../../assets/carousel/fashion.jpg';
-import tech from '../../assets/carousel/tech.jpg';
+import clothing from "../../assets/carousel/clothing.jpg";
+import accessories from "../../assets/carousel/accessories.jpg";
+import hats from "../../assets/carousel/hats.jpg";
+import petswag from "../../assets/carousel/petswag.jpg";
+import smartphones from "../../assets/carousel/smartphones.jpg";
+import fashion from "../../assets/carousel/fashion.jpg";
+import tech from "../../assets/carousel/tech.jpg";
 
 //brand logos
-import adidas from '../../assets/brand_logos/Adidas_Logo.svg';
-import apple from '../../assets/brand_logos/Apple_logo_black.svg';
-import xiaomi from '../../assets/brand_logos/xiaomi-4.svg';
-import gucci from '../../assets/brand_logos/Gucci_logo.svg';
-import h_m from '../../assets/brand_logos/H&M-Logo.svg.png';
-import lg from '../../assets/brand_logos/lg.svg';
-import lego from '../../assets/brand_logos/lego.svg';
-import garnier from '../../assets/brand_logos/garnier-2.svg';
-import gillete from '../../assets/brand_logos/gillette.svg';
-import castrol from '../../assets/brand_logos/castrol-4.svg';
-import loreal from '../../assets/brand_logos/l-oreal-3.svg';
-
+import adidas from "../../assets/brand_logos/Adidas_Logo.svg";
+import apple from "../../assets/brand_logos/Apple_logo_black.svg";
+import xiaomi from "../../assets/brand_logos/xiaomi-4.svg";
+import gucci from "../../assets/brand_logos/Gucci_logo.svg";
+import h_m from "../../assets/brand_logos/H&M-Logo.svg.png";
+import lg from "../../assets/brand_logos/lg.svg";
+import lego from "../../assets/brand_logos/lego.svg";
+import garnier from "../../assets/brand_logos/garnier-2.svg";
+import gillete from "../../assets/brand_logos/gillette.svg";
+import castrol from "../../assets/brand_logos/castrol-4.svg";
+import loreal from "../../assets/brand_logos/l-oreal-3.svg";
 
 //grid
-import grid_shoe from '../../assets/grids/shoe.svg';
-import grid_cloth from '../../assets/grids/cloth.svg';
-import grid_smartphone from '../../assets/grids/smartphone.svg';
-import grid_beauty from '../../assets/grids/beauty.svg';
+import grid_shoe from "../../assets/grids/shoe.svg";
+import grid_cloth from "../../assets/grids/cloth.svg";
+import grid_smartphone from "../../assets/grids/smartphone.svg";
+import grid_beauty from "../../assets/grids/beauty.svg";
 
-import grid_bg from '../../assets/grids/bg.jpg';
-
-
-
+import AuthButtons from "./components/AuthButtons";
+import { useNavigate } from "react-router-dom";
 
 const HomeContainer = styled.div`
-  background-image:url(bg.jpg);
+  background-image: url(bg.jpg);
   transition: all 0.3s linear;
   align-items: center;
   padding-bottom: 1rem;
-`
+`;
 const CarouselContainer = styled.div`
-  padding:1rem;
-  gap:8px;
-`
+  padding: 1rem;
+  gap: 8px;
+`;
 
 const CarouselItem = styled.div`
-  flex:1;
+  flex: 1;
   height: 450px;
   box-shadow: 0px 5px 12px 0px rgba(1, 1, 1, 0.25);
   border-radius: 8px;
   display: flex;
   height: 100%;
   position: relative;
-  border:1px solid #ccc;
+  border: 1px solid #ccc;
 
   .carousel_item {
     object-fit: cover;
     height: 450px;
-
   }
 
-  img{
+  img {
     object-fit: contain;
     max-width: 100%;
     width: 100%;
     border-radius: 8px;
   }
 
-  .title{
-    font-size:22px;
+  .title {
+    font-size: 22px;
     font-weight: 350;
-    color:#000000;
-    padding:4px 8px;
+    color: #000000;
+    padding: 4px 8px;
     border-radius: 8px;
     cursor: pointer;
     position: absolute;
     bottom: 0;
-    left:auto;
+    left: auto;
     right: auto;
-    margin:0 auto;
-
+    margin: 0 auto;
     background: rgba(255, 255, 255, 0.336);
-    /* box-shadow: 0 15px 10px rgba(148, 148, 148, .1); */
     -webkit-backdrop-filter: blur(6.3px);
     backdrop-filter: blur(6.3px);
   }
 
-  &:hover{
-    flex:4;
-    transition: all 0.5s linear; 
+  &:hover {
+    flex: 4;
+    transition: all 0.5s linear;
     box-shadow: 0px 20px 12px 0px rgba(1, 1, 1, 0.25);
   }
-`
+
+  .go-btn{
+    right: 3px;
+    bottom:3px;
+    display: flex;
+    align-items: center;
+    gap:0.5rem;
+  }
+`;
 
 const SliderContainer = styled.div`
   padding: 1rem;
@@ -113,9 +116,7 @@ const SliderContainer = styled.div`
 const GridContainer = styled.div`
   margin: 1.5rem 0;
   background-attachment: fixed;
- background-repeat: no-repeat; 
-
-
+  background-repeat: no-repeat;
   width: 100%;
   padding: 5%;
   z-index: 5;
@@ -128,7 +129,7 @@ const GridContainer = styled.div`
     box-shadow: 0px 0px 12px 0px rgba(1, 1, 1, 0.25);
     transition: all 0.3s linear;
 
-    &:hover{
+    &:hover {
       box-shadow: 0px 10px 12px 0px rgba(17, 17, 18, 0.356);
     }
   }
@@ -148,124 +149,113 @@ const GridContainer = styled.div`
   }
 `;
 
-
-const AuthButtonContainer = styled.div`
-  border: 2px solid #ccc;
-  padding: 8px 1rem;
-  border-radius: 8px;
-  margin:8px auto;
-  width: min(90vw,250px);
-  text-align: center;
-  background-color: #000;
-  color:#fff;
-cursor: pointer;
-  .title{
-    font-weight: 600;
-  }
-
-  &:hover{
-  background-color: #212121f3;
-  }
-`
-
-const OrSeparatorContainer = styled.div`
-justify-content: center;
-  .line{
-    width:125px;
-    height: 1.25px;
-    background-color: #d0cece;
-  }
-`
-
 const EcommerceHome = () => {
-
-
+  const navigate = useNavigate()
   const carouselItems = useMemo(() => {
     return [
       {
         img_url: clothing,
-        title: 'Clothing'
+        title: "Apparel",
+        path:'/e-commerce/products?category=mens-shirts'
       },
       {
         img_url: accessories,
-        title: 'Accessories'
+        title: "Accessories",
+        path:'/e-commerce/products?category=sports-accessories'
       },
       {
         img_url: fashion,
-        title: 'Beauty'
+        title: "Beauty",
+        path:'/e-commerce/products?category=beauty'
       },
       {
         img_url: tech,
-        title: 'Tech'
+        title: "Tech",
+        path:'/e-commerce/products?category=smartphones'
       },
-    ]
-  }, [])
+    ];
+  }, []);
 
   const Carousel = () => {
-  const [activeCarouselItem,setActiveCarouselItem] = useState(-1);
+    const [activeCarouselItem, setActiveCarouselItem] = useState(-1);
 
-    return <CarouselContainer className='fl fl-c-m carousel-m'>
-      {carouselItems.map((carouselItem,index) => {
-        return <CarouselItem className={css('carousel-item-m',{'active-carousel-item-m': index == activeCarouselItem})} key={carouselItem.img_url} onClick={() => setActiveCarouselItem(index)}>
-          <div className="title fl ac">{carouselItem.title}</div>
-          <img className='carousel_item' src={carouselItem.img_url} />
-        </CarouselItem>
-      })}
-    </CarouselContainer>
-  }
+    return (
+      <CarouselContainer className="fl fl-c-m carousel-m">
+        {carouselItems.map((carouselItem, index) => {
+          return (
+            <CarouselItem
+              className={css("carousel-item-m", {
+                "active-carousel-item-m": index == activeCarouselItem,
+              })}
+              key={carouselItem.img_url}
+              onClick={() => setActiveCarouselItem(index)}
+            >
+              <div className="title fl ac">{carouselItem.title}</div>
+              <img className="carousel_item" src={carouselItem.img_url} />
+              <div className={css("title go-btn m-hide",{'m-show': activeCarouselItem === index})} onClick={()=>navigate(carouselItem.path) }>GO <BsChevronRight /></div>
+            </CarouselItem>
+          );
+        })}
+      </CarouselContainer>
+    );
+  };
 
   const LogoSlider = () => {
-    const brandLogos = [adidas, gucci, apple, h_m, gillete, xiaomi, lg, lego, garnier, castrol, loreal]
-    return <SliderContainer className='fl g4 js g15-m'>
-      {brandLogos.map(brandLogo => {
-        return <img className='slider-img' key={brandLogo.toString()} src={brandLogo} />
-      })}
-    </SliderContainer>
-  }
-
+    const brandLogos = [
+      adidas,
+      gucci,
+      apple,
+      h_m,
+      gillete,
+      xiaomi,
+      lg,
+      lego,
+      garnier,
+      castrol,
+      loreal,
+    ];
+    return (
+      <SliderContainer className="fl g4 js g15-m">
+        {brandLogos.map((brandLogo) => {
+          return (
+            <img
+              className="slider-img"
+              key={brandLogo.toString()}
+              src={brandLogo}
+            />
+          );
+        })}
+      </SliderContainer>
+    );
+  };
 
   const Grid = () => {
-    return <GridContainer className='fl grid-container-m' style={{backgroundImage:`url(${grid_bg})`}}>
-      <div className='m-l-auto'>
-        <img className="q q1" src={grid_shoe} />
-        <img className="q" src={grid_smartphone} />
-      </div>
-      <div className='second-half m-r-auto'>
-        <img className="q" src={grid_cloth} />
-        <img className="q q4" src={grid_beauty} />
-      </div>
-    </GridContainer>
-  }
+    return (
+      <GridContainer className="fl grid-container-m">
+        <div className="m-l-auto">
+          <img className="q q1" src={grid_shoe}  onClick={()=> navigate('/e-commerce/products?category=mens-shoes')} />
+          <img className="q" src={grid_smartphone} onClick={()=> navigate('/e-commerce/products?category=smartphones')} />
+        </div>
+        <div className="second-half m-r-auto">
+          <img className="q" src={grid_cloth} onClick={()=> navigate('/e-commerce/products?category=womens-dresses')} />
+          <img className="q q4" src={grid_beauty} onClick={()=> navigate('/e-commerce/products?category=beauty')} />
+        </div>
+      </GridContainer>
+    );
+  };
 
-
-const AuthButton:FC<{title:string;}> = ({title}) =>{
-  return <AuthButtonContainer>
-    <div className="title">{title}</div>
-  </AuthButtonContainer>
-}
-
-
-const OrSeparator = ()=>{
-  return <OrSeparatorContainer className='fl ac g1 m-h-auto al-s-m'>
-<div className='line'/>
-or
-<div className='line'/>
-  </OrSeparatorContainer>
-}
   return (
-    <HomeContainer className='fl fl-c fl1 ov-hidden'>
+    <HomeContainer className="fl fl-c fl1 ov-hidden">
       <Navbar />
-      <div style={{paddingTop:80}} />
+      <div style={{ paddingTop: 80 }} />
       <div className="fl1 ov-auto">
-      <Carousel />
-      <LogoSlider />
-      <Grid />
-      <AuthButton title='Login'/>
-      <OrSeparator/>
-      <AuthButton title='SignUp'/>
+        <Carousel />
+        <LogoSlider />
+        <Grid />
+        <AuthButtons title1="Login" title2="SignUp"/>
       </div>
     </HomeContainer>
-  )
-}
+  );
+};
 
 export default EcommerceHome;

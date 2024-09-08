@@ -125,7 +125,7 @@ const SelectedProduct = () => {
 
   useEffect(() => {
     id &&
-      fetchProducts(parseInt(id)).then((res) => {
+      fetchProducts({id:parseInt(id)}).then((res) => {
         setProduct(res as iProduct);
       }).catch(err => console.log(err)).finally(()=> setLoading(false));
   }, [id]);
@@ -150,14 +150,15 @@ return product && <CountIndicator product={product} cartItems={cartItems} />
   return (
     <>
         <Navbar/>
-
+        {loading ? <Loader/> :
     <SelectedProductWrapper onScroll={handleScroll} className="pt-5 selected-product-wrapper-m">
-  
+    <div className="fl js ac pt-0-5">
       <BackIconContainer onClick={() => navigate("/e-commerce/products")}>
+   
         <LiaArrowLeftSolid size={32} />
       </BackIconContainer>
       <Price className="only-price" value={product?.price as number} />
-      {loading && <Loader/>}
+      </div>
       {!loading && product && (
         <div className="fl g3 fl-c-m g1-m">
           <div className="fl pt-2 p-0-m">
@@ -166,7 +167,7 @@ return product && <CountIndicator product={product} cartItems={cartItems} />
                 <ImgSelector
                   key={index}
                   className={css({
-                    "img-selector__active": index === activeImageIndex
+                    "img-selector__active": index === activeImageIndex 
                   })}
                   imageurl={imgUrl}
                   onClick={() => setActiveImageIndex(index)}
@@ -185,9 +186,9 @@ return product && <CountIndicator product={product} cartItems={cartItems} />
               {product.sku}
             </div>
             <div className="separator hide"/>
-            <div className="fl ac g-3 total-compute-section">
+            <div className="fl ac g-3 total-compute-section g1-m">
               {computeCountIndicator()}
-                <Price text="total" value={product?.price *cartItems[product.id]?.count || product.price} />
+                <Price text="total" value={(product?.price *cartItems[product.id]?.count) ?? product.price} />
             </div>
 
             <div className="add_wishlist_btn_container">
@@ -208,8 +209,8 @@ return product && <CountIndicator product={product} cartItems={cartItems} />
           </div>
         </div>
       )}
-    </SelectedProductWrapper> 
-     </>
+    </SelectedProductWrapper>}
+    </>
   );
 };
 

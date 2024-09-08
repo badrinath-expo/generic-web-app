@@ -4,7 +4,7 @@ import css from "classnames";
 import Search from "./Search";
 import { SlClose } from "react-icons/sl";
 import cart_img from "../../../assets/bx-cart-alt.svg.png";
-import { getCartItems } from "../../../Redux/cartSlice";
+import { getCartItems, isUserLogged } from "../../../Redux/cartSlice";
 import { useAppSelector } from "../../../Redux/hooks";
 import dollar_icon from "../../../assets/dollar_icon.svg";
 // import logo from "../../../assets/logo.png";
@@ -12,8 +12,8 @@ import './Navbar.css';
 import logo from "../../../assets/Designer.png";
 import { IoMenu } from "react-icons/io5";
 import { useLocation, useNavigate } from "react-router-dom";
+import { AuthButton } from "./AuthButtons";
 const NavbarContainer = styled.div`
-
   background: rgba(255, 255, 255, 0.336);
     box-shadow: 0 15px 10px rgba(148, 148, 148, .1);
     -webkit-backdrop-filter: blur(6.3px);
@@ -160,53 +160,51 @@ const CartButtonContainer = styled.div`
 interface iNavItem {
   id: number;
   title: string;
-  path:string;
+  path: string;
 }
 const Navbar = () => {
-  const [activeNavItem, setActiveNavItem] = useState<number>(0);
   const cartItems = useAppSelector(getCartItems);
   const [showMenuButton, setShowMenuButton] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
+  const isLogged = useAppSelector(isUserLogged)
 
   const navItems = useMemo(
     () => [
       {
-          title: "Home",
-           to: "/e-commerce",
-       },
+        title: "Home",
+        to: "/e-commerce",
+      },
       {
         title: "Products",
         to: "/e-commerce/products",
-      // },
-      // {
-      //   title: "Accessories",
-      //   to: "/Apparel",
-      // },
-      // {
-      //   title: "Hats/Gloves",
-      //   to: "/Apparel",
+        // },
+        // {
+        //   title: "Accessories",
+        //   to: "/Apparel",
+        // },
+        // {
+        //   title: "Hats/Gloves",
+        //   to: "/Apparel",
       },
     ],
     []
   );
 
 
-  useEffect(()=>{
-  setShowMenuButton(true)
-  },[location])
+  useEffect(() => {
+    setShowMenuButton(true)
+  }, [location])
 
-  const NavItem: FC<iNavItem> = useCallback(({ title, id,path }) => {
-    const isActive = (id === activeNavItem)
+  const NavItem: FC<iNavItem> = useCallback(({ title, id, path }) => {
+    const isActive = (location.pathname === path)
     return (
-      <NavItemContainer className="menu-item-separator" onClick={() => (setActiveNavItem(id),navigate(path))}>
-        <div className={css("title", { "active-title": isActive})}>
-          {title}
-        </div>
+      <NavItemContainer className="menu-item-separator" onClick={() => (navigate(path))}>
+        <div className={css("title", { "active-title": isActive })}>{title}</div>
         {isActive && <div className="indicator" />}
       </NavItemContainer>
     );
-  },[activeNavItem]);
+  }, [location]);
 
   const Balance: FC<{ value: number }> = ({ value }) => {
     return (<div className="fl-m m-h-auto-m  ac-m g1">
@@ -226,7 +224,7 @@ const Navbar = () => {
 
   const CartButton: FC<{ cartCount: number }> = ({ cartCount }) => {
     return (
-      <CartButtonContainer className="cp m-h-auto-m fl-m ac-m g1-m" onClick={()=> navigate('/cart')}>
+      <CartButtonContainer className="cp m-h-auto-m fl-m ac-m g1-m" onClick={() => navigate('/cart')}>
         <div className="cart-icon-part">
           <img className="cart-img" src={cart_img} width={40} height={40} />
           <div className="cart-count">{cartCount}</div>
@@ -238,36 +236,26 @@ const Navbar = () => {
 
   return (
     <>
-    <div className="fl al-s d-hide m-flex nav-bg">
-      <IoMenu size={32} className={css("menu_icon", { 'm-show': showMenuButton })} onClick={() => setShowMenuButton(false)} />
-      <img className="logo" src={logo} alt="" width={80} />
-      <Search
-            className="search-box search_box-m"
-            onSearch={(inputText: string) => {
-              console.log(inputText);
-            }}
-          />
+      <div className="fl al-s d-hide m-flex nav-bg ac">
+        <IoMenu size={32} className={css("menu_icon", { 'm-show': showMenuButton })} onClick={() => setShowMenuButton(false)} />
+        <img className="logo logo-nav-m" src={logo} alt="" width={80} />
+        <Search className="search-box search_box-m" onSearch={(inputText: string) => { console.log(inputText); }} />
       </div>
       <NavbarContainer className={css("fl g-1 fl-c-m navbar_container_m animate-this-element m-hide", { 'm-show': !showMenuButton })}>
         <div className="fl g1 fl-c-m">
           <SlClose className={css('close_icon', { 'm-show': !showMenuButton })} size={24} onClick={() => setShowMenuButton(true)} />
-          <div className="fl" onClick={()=> navigate('/e-commerce')}>
+          <div className="fl" onClick={() => navigate('/e-commerce')}>
             <img className="logo logo-m m-auto-m" src={logo} alt="" width={80} />
           </div>
           <NavActionsContainer className="fl fl-c-m g1-m">
             {navItems.map((navItem, index) => {
               return (
-                <NavItem
-                  id={index}
-                  key={index}
-                  title={navItem.title}
-                  path={navItem.to}
-                />
+                <NavItem id={index} key={index} title={navItem.title} path={navItem.to} />
               );
             })}
           </NavActionsContainer>
         </div>
-        <div className="fl g1 m-l-auto fl-c-m m-h-auto-m">
+        <div className="fl g1 m-l-auto fl-c-m m-h-auto-m ac">
           <Search
             className="search-box search_box-m m-hide"
             onSearch={(inputText: string) => {
@@ -280,6 +268,7 @@ const Navbar = () => {
             <div className="txt">Contact Us</div>
             <div className="separator m-hide" />
             <div className="txt">FAQ</div>
+            {isLogged && <AuthButton className="hide m-show" title="Login" />}
           </div>
         </div>
       </NavbarContainer>

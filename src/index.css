@@ -95,6 +95,10 @@ img {
   padding-top: 1rem;
 }
 
+.pt-0-5{
+  padding-top: 0.5rem;
+}
+
 .pt-2 {
   padding-top: 2rem;
 }
@@ -116,6 +120,10 @@ img {
 
 .al-fl-end {
   align-items: flex-end;
+}
+
+.h100{
+  height: 100%;
 }
 
 /* width */
@@ -205,6 +213,13 @@ img {
     align-items: center;
   }
 
+  .fl-1-m{
+    flex:1 !important;
+  }
+  .fl-2-m{
+    flex:1 !important;
+  }
+
   .fl-m {
     display: flex;
   }
@@ -244,8 +259,26 @@ img {
     gap: 1rem !important;
   }
 
+  .g05-m{
+    gap: 0.5rem !important;
+  }
+
   .mt-1-m {
     margin-top: 1rem;
+  }
+
+  .line{
+    margin:3px auto !important;
+  }
+
+  .line-1{
+    width: 5px !important;
+  }
+  .line-2{
+    width: 10px !important;
+  }
+  .line-3{
+    width: 15px !important;
   }
 
   
@@ -255,6 +288,16 @@ img {
 
   .p-0-m {
     padding: 0;
+  }
+  
+  .w-100-m{
+    width: 100% !important;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    background-color: transparent;
+    z-index: -10;
   }
 
   @keyframes name-of-animation {

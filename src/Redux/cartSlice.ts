@@ -6,11 +6,13 @@ import { iCartItems } from '../pages/Ecommerce/Cart';
 export interface CounterState {
   value: iCartItems;
   status: 'idle' | 'loading' | 'failed';
+  userLogged:boolean;
 }
 
 const initialState: CounterState = {
   value: {},
   status: 'idle',
+  userLogged : false
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -34,6 +36,10 @@ export const cartSlice = createSlice({
   reducers: {
     setCartItems:(state,action: PayloadAction<iCartItems>) =>{
         state.value = action.payload
+    },
+
+    setUserLogged: (state) =>{
+     state.userLogged = true
     }
     // increment: (state) => {
     //   // Redux Toolkit allows us to write "mutating" logic in reducers. It
@@ -67,12 +73,13 @@ export const cartSlice = createSlice({
  /// },
 });
 
-export const { setCartItems } = cartSlice.actions;
+export const { setCartItems,setUserLogged } = cartSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const getCartItems = (state: RootState) => state.cart.value;
+export const isUserLogged = (state: RootState) => state.cart.userLogged;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

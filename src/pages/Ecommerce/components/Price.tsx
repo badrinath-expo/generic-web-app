@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-
+import '../Ecommerce.css';
 interface iPrice {
     className?: string;
     text?: string;
@@ -25,7 +25,7 @@ interface iPrice {
 
 const Price: FC<iPrice> = ({ text, value, className }) => {
     return (
-      <PriceContainer className={`${className}`}>
+      <PriceContainer className={`${className} price-m`}>
         <span className="text">{(text && text.toUpperCase()) || "PRICE"}</span>{" "}
         <span className="price">
           $<span className="price-value">{value || "0.0"}</span>

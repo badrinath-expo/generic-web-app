@@ -12,6 +12,8 @@ import OttPlatform from './pages/OttPlatform';
 import SelectedProduct from './pages/Ecommerce/SelectedProduct';
 import Cart from './pages/Ecommerce/Cart';
 import EcommerceHome from './pages/Ecommerce/EcommerceHome';
+import Login from './pages/Ecommerce/components/Login';
+import OrderPlaced from './pages/Ecommerce/components/OrderPlaced';
 
 
 function App() {
@@ -19,7 +21,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<EcommerceHome />} />
+      <Route path='/' element={<Login />} />
       <Route path="analytics" element={<Analytics />} />
       <Route path="portfolio" element={<Portfolio />} />
       <Route path="e-commerce" element={<EcommerceHome />} />
@@ -28,6 +30,8 @@ function App() {
       <Route path="cart" element={<Cart />} />
       <Route path="ott-platform" element={<OttPlatform />} />
       <Route path="about" element={<About />} />
+      <Route path='login' element = {<Login/>} />
+      <Route path='cart/order-placed' element = {<OrderPlaced />} />
     </Routes>
   );
 }

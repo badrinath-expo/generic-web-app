@@ -13,6 +13,7 @@ import CountIndicator from './components/CountIndicator';
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { updateProductHandler,removeProductHandler } from './utils';
 import Navbar from './components/Navbar';
+import AuthButtons from './components/AuthButtons';
 
 export interface iCartItems {
   [id: number]: iProduct & { count: number };
@@ -82,6 +83,12 @@ padding:1%;
   }
 
 `
+
+const CartCtaContainer = styled.div`
+  
+`
+
+
 let i=0;
 const Cart = () => {
   const [cartItemss, setCartItems] = useState<iCartItems>({
@@ -140,13 +147,13 @@ useEffect(()=>{
   return (
     <>
      <Navbar/>
-    <CartItemsContainer>  
+    <CartItemsContainer className='cart_items_container_m g05-m'>  
       <CartHeader className='fl ac js'>
         <div className="title">Cart</div>
         <Price text='Total' value={cartTotalValue}/>
       </CartHeader>
       {cartItems && Object.entries(cartItems).map(cartItem => {
-        return <CartItemWrapper className='fl' key={cartItem[1].id}>
+        return <CartItemWrapper className='fl ac cart-item-wrapper' key={cartItem[1].id}>
           <div className="cart-item-img">
             <img src={cartItem[1].images[0]} />
           </div>
@@ -154,10 +161,13 @@ useEffect(()=>{
             <div className="item-title">{cartItem[1].title}</div>
           </div>
           <CountIndicator product={cartItem[1]} cartItems={cartItems}/>
-          <Price className='item-price' text='sub total' value={cartItem[1].price*cartItem[1].count}/>
-          <RiDeleteBin6Line className='cp delete-cta' onClick={()=>removeProductHandler(cartItem[1].id,cartItems)} />
+          <Price className='item-price price-subtotal' text='sub total' value={cartItem[1].price*cartItem[1].count}/>
+          <RiDeleteBin6Line className='cp delete-cta' onClick={()=>removeProductHandler(cartItem[1].id,cartItems)} size={32} />
         </CartItemWrapper>
       })}
+    {(Object.keys(cartItems).length >0) && <CartCtaContainer>
+<AuthButtons title1='Check out' title2='Buy More' actionPath1='order-placed' actionPath2='e-commerce/products'/>
+      </CartCtaContainer>}
     </CartItemsContainer>
     </>);
 }
