@@ -10,7 +10,7 @@ const LoginContainer = styled.div`
   box-shadow: 0 15px 10px rgba(66, 66, 66, 0.329);
   -webkit-backdrop-filter: blur(6.3px);
   backdrop-filter: blur(6.3px);
-
+  height: 100vh;
 
   .logo{
     width: 100px;
@@ -55,9 +55,10 @@ const InputContainer = styled.div`
     background-color: transparent;
     border: 0px;
     font-size:16px;
-    color: #5f5f5f;
+    color: #151515;
     width: max-content;
     height: 32px;
+    width: 100%;
 
     &:hover,
     &:focus-visible,
@@ -111,7 +112,7 @@ const loginHandler = useCallback(() =>{
 },[email,password])
   
   return (
-    <LoginContainer className="fl fl-c g1 ac jc h100">
+    <LoginContainer className="fl fl-c g1 ac jc h100-m">
       <img className="logo" src={logo} alt="" width={80} />
      <div className="welcome-txt">Welcome to Shop Online...</div>
       <InputWrapper>
@@ -126,7 +127,7 @@ const loginHandler = useCallback(() =>{
       <InputWrapper>
         <label>PASSWORD</label>
         <InputContainer>
-          <input
+          <input type={"password"}
             placeholder={"enter your password"}
             onChange={passwodInputHandler}
           />
