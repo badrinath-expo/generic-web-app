@@ -8,26 +8,27 @@ import { getCartItems, isUserLogged } from "../../../Redux/cartSlice";
 import { useAppSelector } from "../../../Redux/hooks";
 import dollar_icon from "../../../assets/dollar_icon.svg";
 // import logo from "../../../assets/logo.png";
-import './Navbar.css';
+import "./Navbar.css";
 import logo from "../../../assets/Designer.png";
-import { IoMenu } from "react-icons/io5";
+import { IoClose, IoMenu } from "react-icons/io5";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthButton } from "./AuthButtons";
+import { BsChevronLeft } from "react-icons/bs";
 const NavbarContainer = styled.div`
   background: rgba(255, 255, 255, 0.336);
-    box-shadow: 0 15px 10px rgba(148, 148, 148, .1);
-    -webkit-backdrop-filter: blur(6.3px);
-    backdrop-filter: blur(6.3px);
-  border:1px solid #ccc;
+  box-shadow: 0 15px 10px rgba(148, 148, 148, 0.1);
+  -webkit-backdrop-filter: blur(6.3px);
+  backdrop-filter: blur(6.3px);
+  border: 1px solid #ccc;
   width: 100%;
 
   padding: 8px 1rem;
-  position:fixed;
+  position: fixed;
   z-index: 99;
 
   .logo {
     object-fit: contain;
-    width:60px;
+    width: 60px;
   }
 
   .contact-section {
@@ -59,8 +60,8 @@ const NavActionsContainer = styled.div`
 const NavItemContainer = styled.div`
   padding: 8px 1rem 2px;
   text-align: center;
-width: max-content;
-margin:1px auto;
+  width: max-content;
+  margin: 1px auto;
   .title {
     font-size: 18px;
     font-weight: 500;
@@ -75,7 +76,9 @@ margin:1px auto;
   cursor: pointer;
   .indicator {
     background-color: #000000;
-    width: 2rem;
+    /* width: 2rem; */
+    width: 4px;
+    border-radius: 50%;
     height: 4px;
     margin: 2px auto 0;
   }
@@ -106,36 +109,35 @@ const BalanceWrapper = styled.div`
     text-align: center;
     border-radius: inherit;
     font-size: 18px;
-    font-weight:550;
+    font-weight: 550;
     color: #ffffff;
     padding: 0px 6px;
     align-items: center;
     gap: 0.1rem;
     box-shadow: 0px 5px 12px 0px rgba(1, 1, 1, 0.25);
 
-    .dollar { 
+    .dollar {
       font-family: sans-serif;
       padding-top: 6px;
       object-fit: contain;
     }
   }
 
-  &:hover{
+  &:hover {
     box-shadow: 0px 10px 12px 0px rgba(1, 1, 1, 0.25);
   }
 `;
 
 const CartButtonContainer = styled.div`
-
-.cart-icon-part{
-  position: relative;
-  margin-top: 4px;
-  width: max-content;
-}
+  .cart-icon-part {
+    position: relative;
+    margin-top: 4px;
+    width: max-content;
+  }
   .cart-count {
     position: absolute;
-    top: -10px;
-    right: -3px;
+    top: -9px;
+    right: -4px;
     background-color: aliceblue;
     padding: 0 6px;
     font-weight: 600;
@@ -144,17 +146,15 @@ const CartButtonContainer = styled.div`
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
 
-  .cart-img{
-
-  &:hover{
-    filter: drop-shadow(0px 10px 12px 0px rgba(1, 1, 1, 0.25));
+  .cart-img {
+    &:hover {
+      filter: drop-shadow(0px 10px 12px 0px rgba(1, 1, 1, 0.25));
+    }
   }
-}
 
-
-.cart-title{
-  display:none;
-}
+  .cart-title {
+    display: none;
+  }
 `;
 
 interface iNavItem {
@@ -167,7 +167,7 @@ const Navbar = () => {
   const [showMenuButton, setShowMenuButton] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-  const isLogged = useAppSelector(isUserLogged)
+  const isLogged = useAppSelector(isUserLogged);
 
   const navItems = useMemo(
     () => [
@@ -191,40 +191,51 @@ const Navbar = () => {
     []
   );
 
-
   useEffect(() => {
-    setShowMenuButton(true)
-  }, [location])
-
-  const NavItem: FC<iNavItem> = useCallback(({ title, id, path }) => {
-    const isActive = (location.pathname === path)
-    return (
-      <NavItemContainer className="menu-item-separator" onClick={() => (navigate(path))}>
-        <div className={css("title", { "active-title": isActive })}>{title}</div>
-        {isActive && <div className="indicator" />}
-      </NavItemContainer>
-    );
+    setShowMenuButton(true);
   }, [location]);
 
+  const NavItem: FC<iNavItem> = useCallback(
+    ({ title, id, path }) => {
+      const isActive = location.pathname === path;
+      return (
+        <NavItemContainer
+          className="menu-item-separator"
+          onClick={() => navigate(path)}
+        >
+          <div className={css("title", { "active-title": isActive })}>
+            {title}
+          </div>
+          {isActive && <div className="indicator m-hide" />}
+        </NavItemContainer>
+      );
+    },
+    [location]
+  );
+
   const Balance: FC<{ value: number }> = ({ value }) => {
-    return (<div className="fl-m m-h-auto-m  ac-m g1">
-      <BalanceWrapper className="mt-1-m">
-        <div className="title">Balance</div>
-        <div className="value fl">
-          <span className="dollar">
-            <img src={dollar_icon} height={16} />
-          </span>
-          {value}
-        </div>
-      </BalanceWrapper>
-      <span className="cw-title m-show wallet-title"> Wallet</span>
-    </div>
+    return (
+      <div className="fl-m m-h-auto-m  ac-m g1">
+        <BalanceWrapper className="mt-1-m">
+          <div className="title">Balance</div>
+          <div className="value fl">
+            <span className="dollar">
+              <img src={dollar_icon} height={16} />
+            </span>
+            {value}
+          </div>
+        </BalanceWrapper>
+        <span className="cw-title m-show wallet-title"> Wallet</span>
+      </div>
     );
   };
 
   const CartButton: FC<{ cartCount: number }> = ({ cartCount }) => {
     return (
-      <CartButtonContainer className="cp m-h-auto-m fl-m ac-m g1-m" onClick={() => navigate('/cart')}>
+      <CartButtonContainer
+        className="cp m-h-auto-m fl-m ac-m g1-m"
+        onClick={() => navigate("/cart")}
+      >
         <div className="cart-icon-part">
           <img className="cart-img" src={cart_img} width={40} height={40} />
           <div className="cart-count">{cartCount}</div>
@@ -237,31 +248,30 @@ const Navbar = () => {
   return (
     <>
       <div className="fl al-s d-hide m-flex nav-bg ac">
-        <IoMenu size={32} className={css("menu_icon", { 'm-show': showMenuButton })} onClick={() => setShowMenuButton(false)} />
-        <img className="logo logo-nav-m" src={logo} alt="" width={80} />
-        <Search className="search-box search_box-m" onSearch={(inputText: string) => { console.log(inputText); }} />
+        <IoMenu size={32} className={css("menu_icon", { "m-show": showMenuButton })} onClick={() => setShowMenuButton(false)} />
+        <img className="logo logo-nav-m" src={logo} alt="" width={80} onClick={() => navigate("/e-commerce")} />
+        <Search className="search-box search_box-m" onSearch={(inputText: string) => { (console.log(inputText,navigate(`/e-commerce/products?searchQuery=${inputText}`))) }} />
       </div>
-      <NavbarContainer className={css("fl g-1 fl-c-m navbar_container_m animate-this-element m-hide", { 'm-show': !showMenuButton })}>
+      <NavbarContainer className={css("fl g-1 fl-c-m navbar_container_m animate-this-element m-hide",{ "m-show": !showMenuButton })}>
         <div className="fl g1 fl-c-m">
-          <SlClose className={css('close_icon', { 'm-show': !showMenuButton })} size={24} onClick={() => setShowMenuButton(true)} />
-          <div className="fl" onClick={() => navigate('/e-commerce')}>
+          {/* <SlClose className={css('close_icon', { 'm-show': !showMenuButton })} size={24} onClick={() => setShowMenuButton(true)} /> */}
+          {/* <IoClose  className={css('close_icon', { 'm-show': !showMenuButton })} size={24} onClick={() => setShowMenuButton(true)} /> */}
+          <BsChevronLeft
+            size={24}
+            className={css("back_icon", { "m-show": !showMenuButton })}
+            onClick={() => setShowMenuButton(true)}
+          />
+          <div className="fl" onClick={() => navigate("/e-commerce")}>
             <img className="logo logo-m m-auto-m" src={logo} alt="" width={80} />
           </div>
           <NavActionsContainer className="fl fl-c-m g1-m">
             {navItems.map((navItem, index) => {
-              return (
-                <NavItem id={index} key={index} title={navItem.title} path={navItem.to} />
-              );
+              return (<NavItem id={index} key={index} title={navItem.title} path={navItem.to} />);
             })}
           </NavActionsContainer>
         </div>
         <div className="fl g1 m-l-auto fl-c-m m-h-auto-m ac">
-          <Search
-            className="search-box search_box-m m-hide"
-            onSearch={(inputText: string) => {
-              console.log(inputText);
-            }}
-          />
+          <Search className="search-box search_box-m m-hide" onSearch={(inputText: string) => { console.log(inputText); }}/>
           <Balance value={100} />
           <CartButton cartCount={Object.keys(cartItems).length} />
           <div className="contact-section fl fl-c-m g1-m">

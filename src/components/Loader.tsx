@@ -1,4 +1,4 @@
-import { DotLoader } from 'react-spinners';
+import { DotLoader, MoonLoader } from 'react-spinners';
 import styled, { CSSProperties } from 'styled-components';
 
 
@@ -19,6 +19,15 @@ const Loader = () => {
                 aria-label="Loading Spinner"
                 data-testid="loader"
             />
+            // <MoonLoader
+            // className='m-h-auto'
+            //     color={'#303030'}
+            //     loading={true}
+            //     cssOverride={override}
+            //     size={50}
+            //     aria-label="Loading Spinner"
+            //     data-testid="loader"
+            // />
     )
 }
 

@@ -13,7 +13,9 @@ const AuthButtonContainer = styled.div`
   color: #fff;
   cursor: pointer;
   .title {
-    font-weight: 600;
+    /* font-weight: 600; */
+    font-weight: 350;
+    margin:auto;
   }
 
   &:hover {

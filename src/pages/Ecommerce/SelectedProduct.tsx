@@ -14,6 +14,7 @@ import Price from "./components/Price";
 import CountIndicator from "./components/CountIndicator";
 import Navbar from "./components/Navbar";
 import Loader from "../../components/Loader";
+import { BsCartPlusFill, BsChevronLeft } from "react-icons/bs";
 
 interface iPrice {
   className?: string;
@@ -155,7 +156,8 @@ return product && <CountIndicator product={product} cartItems={cartItems} />
     <div className="fl js ac pt-0-5">
       <BackIconContainer onClick={() => navigate("/e-commerce/products")}>
    
-        <LiaArrowLeftSolid size={32} />
+        <LiaArrowLeftSolid className="m-hide" size={32} />
+        <BsChevronLeft size={24} className="hide m-show"/>
       </BackIconContainer>
       <Price className="only-price" value={product?.price as number} />
       </div>
@@ -186,14 +188,16 @@ return product && <CountIndicator product={product} cartItems={cartItems} />
               {product.sku}
             </div>
             <div className="separator hide"/>
-            <div className="fl ac g-3 total-compute-section g1-m">
+            <div className="fl ac g-3 total-compute-section g15-m">
               {computeCountIndicator()}
-                <Price text="total" value={(product?.price *cartItems[product.id]?.count) ?? product.price} />
+                <Price text="total" value={(product?.price*(cartItems[product.id]?.count || 1)).toFixed(2) ?? product.price} />
+                {/* <Price text="total" value={(product?.price*(cartItems[product.id]?.count)) ?? product.price} /> */}
+               
             </div>
 
-            <div className="add_wishlist_btn_container">
+            <div className="add_wishlist_btn_container fl ac">
               <button className="btn" onClick={() => addProductHandler(product, cartItems)}>
-                Add to Cart
+                Add to Cart 
               </button>
      
             </div>

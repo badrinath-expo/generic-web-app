@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Ecommerce.css';
-import { fetchProducts } from '../../apis/ecommerce';
+import { fetchProducts, searchProduct } from '../../apis/ecommerce';
 import Product, { iProduct } from './Product';
 import styled from 'styled-components';
 import cart_icon from '../../assets/cart.png';
@@ -26,13 +26,16 @@ const Products = () => {
   const [loading,setLoading] = useState(true)
   const [searchParams] = useSearchParams();
   const category = searchParams?.get('category') as string;
+  const searchQuery = searchParams?.get('searchQuery') as string;
 
   console.log(searchParams?.get('category'),'search params')
+  console.log(searchParams?.get('searchQuery'),'search params')
 
   useEffect(() => {
-    fetchProducts({category}).then((data) => setProducts(data.products as iProduct[])).catch(err => console.log(err)).finally(() => setLoading(false))
+    const fetchMethod = searchQuery ? searchProduct(searchQuery) : fetchProducts({category}) 
+    fetchMethod.then((data) => setProducts(data.products as iProduct[])).catch(err => console.log(err)).finally(() => setLoading(false))
     return () => { }
-  }, [category])
+  }, [category,searchQuery])
 
   return (
     <EcommerceWrapper className='fl jc'>

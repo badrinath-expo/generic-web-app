@@ -24,7 +24,7 @@ const ProductContainer = styled.div`
   padding: 1em;
   border-radius: 4px;
   width:min(100%,250px);
-  box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
   height: 320px;
   position: relative;
 
@@ -97,7 +97,7 @@ const Product: FC<{ product: iProduct, count: number; }> = ({ product, count }) 
   }
   return (
     <ProductContainer className='fl fl-c m-h-auto-m products-container-m' key={product.id} onClick={handleProductClick}>
-      <RatingContainer><span>{product.rating.toString().slice(0, 3)}</span><FaStar color='#4D4D4D' /></RatingContainer>
+      <RatingContainer className='rating_container_m'><span>{product.rating.toString().slice(0, 3)}</span><FaStar color='#4D4D4D' /></RatingContainer>
       <div className="img-container"><img src={product.images[0]} alt={product.title} /></div>
       <div className="fl fl-c fl1">
         <LineDiv>

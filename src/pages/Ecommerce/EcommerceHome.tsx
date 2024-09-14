@@ -89,14 +89,18 @@ const CarouselItem = styled.div`
     flex: 4;
     transition: all 0.5s linear;
     box-shadow: 0px 20px 12px 0px rgba(1, 1, 1, 0.25);
+    
+    .hover-display{
+      display: flex;
+    }
   }
 
   .go-btn{
     right: 3px;
     bottom:3px;
-    display: flex;
     align-items: center;
     gap:0.5rem;
+    display: none;
   }
 `;
 
@@ -120,19 +124,19 @@ const GridContainer = styled.div`
   width: 100%;
   padding: 5%;
   z-index: 5;
-
+  transition: all 0.4s linear;
   .q {
     width: 320px;
     border: 1px solid #ccc;
     margin: 8px;
     border-radius: 8px;
     box-shadow: 0px 0px 12px 0px rgba(1, 1, 1, 0.25);
-    transition: all 0.3s linear;
-
+    transition: all 0.3s linear;    
     &:hover {
       box-shadow: 0px 10px 12px 0px rgba(17, 17, 18, 0.356);
     }
   }
+
 
   .q1,
   .q4 {
@@ -146,6 +150,7 @@ const GridContainer = styled.div`
   }
   .second-half {
     transform: translateY(20px);
+    transition: all 0.4s linear;
   }
 `;
 
@@ -192,7 +197,7 @@ const EcommerceHome = () => {
             >
               <div className="title fl ac">{carouselItem.title}</div>
               <img className="carousel_item" src={carouselItem.img_url} />
-              <div className={css("title go-btn m-hide",{'m-show': activeCarouselItem === index})} onClick={()=>navigate(carouselItem.path) }>GO <BsChevronRight /></div>
+              <div className={css("title go-btn m-hide hover-display",{'m-flex': activeCarouselItem === index})} onClick={()=>navigate(carouselItem.path) }>GO <BsChevronRight /></div>
             </CarouselItem>
           );
         })}
@@ -247,7 +252,7 @@ const EcommerceHome = () => {
   return (
     <HomeContainer className="fl fl-c fl1 ov-hidden">
       <Navbar />
-      <div style={{ paddingTop: 80 }} />
+      <div className="pt-5" />
       <div className="fl1 ov-auto">
         <Carousel />
         <LogoSlider />

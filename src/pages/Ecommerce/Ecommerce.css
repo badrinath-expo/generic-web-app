@@ -96,7 +96,8 @@
   .cart_items_container_m{
     width: 100vw !important;
     .item-title{
-      font-size: 12px !important;
+      font-size: 14px !important;
+      font-weight: 650;
     }
   }
 
@@ -108,9 +109,25 @@
 .cart-item-wrapper{
   width: auto !important;
   padding-bottom: 5px;
+  padding-top:1rem;
+  position: relative;
+
+  .item-title{
+    position: absolute;
+    top:0;
+    left:0;
+  }
 }
 
 .count-wrapper{
   padding:0 !important;
+}
+
+.rating_container_m{
+  font-size: 12px;
+  border-width: 0px !important;
+  svg{
+    color:yellow;
+  }
 }
 }
