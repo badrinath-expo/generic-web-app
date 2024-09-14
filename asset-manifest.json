@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/generic-web-app/static/css/main.9a7c3156.css",
-    "main.js": "/generic-web-app/static/js/main.ad909a64.js",
+    "main.css": "/generic-web-app/static/css/main.8d44dc7a.css",
+    "main.js": "/generic-web-app/static/js/main.8b370d7c.js",
     "static/js/453.f472f575.chunk.js": "/generic-web-app/static/js/453.f472f575.chunk.js",
     "static/media/cloth.svg": "/generic-web-app/static/media/cloth.4de1a42e4c07797c497583f0f1e52d49.svg",
     "static/media/clothing.jpg": "/generic-web-app/static/media/clothing.766375447aa8c300e761.jpg",
@@ -25,12 +25,12 @@
     "static/media/gillette.svg": "/generic-web-app/static/media/gillette.10f93c83716d6c1ec2710c507cd52836.svg",
     "index.html": "/generic-web-app/index.html",
     "static/media/Apple_logo_black.svg": "/generic-web-app/static/media/Apple_logo_black.fd5844ff7d2dd35961e285c1d45cf481.svg",
-    "main.9a7c3156.css.map": "/generic-web-app/static/css/main.9a7c3156.css.map",
-    "main.ad909a64.js.map": "/generic-web-app/static/js/main.ad909a64.js.map",
+    "main.8d44dc7a.css.map": "/generic-web-app/static/css/main.8d44dc7a.css.map",
+    "main.8b370d7c.js.map": "/generic-web-app/static/js/main.8b370d7c.js.map",
     "453.f472f575.chunk.js.map": "/generic-web-app/static/js/453.f472f575.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9a7c3156.css",
-    "static/js/main.ad909a64.js"
+    "static/css/main.8d44dc7a.css",
+    "static/js/main.8b370d7c.js"
   ]
 }
