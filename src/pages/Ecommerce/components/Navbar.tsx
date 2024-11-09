@@ -114,7 +114,7 @@ const BalanceWrapper = styled.div`
     padding: 0px 6px;
     align-items: center;
     gap: 0.1rem;
-    box-shadow: 0px 5px 12px 0px rgba(1, 1, 1, 0.25);
+    box-shadow: 0px 2px 4px 0px rgba(1, 1, 1, 0.25);
 
     .dollar {
       font-family: sans-serif;
@@ -124,7 +124,7 @@ const BalanceWrapper = styled.div`
   }
 
   &:hover {
-    box-shadow: 0px 10px 12px 0px rgba(1, 1, 1, 0.25);
+    box-shadow: 0px 4px 5px 0px rgba(1, 1, 1, 0.25);
   }
 `;
 
@@ -178,15 +178,15 @@ const Navbar = () => {
       {
         title: "Products",
         to: "/e-commerce/products",
-        // },
-        // {
-        //   title: "Accessories",
-        //   to: "/Apparel",
-        // },
-        // {
-        //   title: "Hats/Gloves",
-        //   to: "/Apparel",
-      },
+      }, 
+      // {
+      //   title: "Orders",
+      //   to: "/orders",
+      // },
+      {
+        title: "Wishlist",
+        to: "/wishlist",
+      }
     ],
     []
   );
@@ -249,29 +249,27 @@ const Navbar = () => {
     <>
       <div className="fl al-s d-hide m-flex nav-bg ac">
         <IoMenu size={32} className={css("menu_icon", { "m-show": showMenuButton })} onClick={() => setShowMenuButton(false)} />
-        <img className="logo logo-nav-m" src={logo} alt="" width={80} onClick={() => navigate("/e-commerce")} />
-        <Search className="search-box search_box-m" onSearch={(inputText: string) => { (console.log(inputText,navigate(`/e-commerce/products?searchQuery=${inputText}`))) }} />
+        <img className="logo logo-nav-m cp" src={logo} alt="" width={80} onClick={() => navigate("/e-commerce")} />
+        <Search className="search-box search_box-m" onSearch={(inputText: string) => { inputText && navigate(`/e-commerce/products?searchQuery=${inputText}`) }} />
       </div>
-      <NavbarContainer className={css("fl g-1 fl-c-m navbar_container_m animate-this-element m-hide",{ "m-show": !showMenuButton })}>
+      <NavbarContainer className={css("fl g-1 fl-c-m navbar_container_m animate-this-element m-hide", { "m-show": !showMenuButton })}>
         <div className="fl g1 fl-c-m">
-          {/* <SlClose className={css('close_icon', { 'm-show': !showMenuButton })} size={24} onClick={() => setShowMenuButton(true)} /> */}
-          {/* <IoClose  className={css('close_icon', { 'm-show': !showMenuButton })} size={24} onClick={() => setShowMenuButton(true)} /> */}
           <BsChevronLeft
             size={24}
             className={css("back_icon", { "m-show": !showMenuButton })}
             onClick={() => setShowMenuButton(true)}
           />
           <div className="fl" onClick={() => navigate("/e-commerce")}>
-            <img className="logo logo-m m-auto-m" src={logo} alt="" width={80} />
+            <img className="logo logo-m m-auto-m cp" src={logo} alt="" width={80} />
           </div>
-          <NavActionsContainer className="fl fl-c-m g1-m">
+          <NavActionsContainer className="fl fl-c-m g1-m ac">
             {navItems.map((navItem, index) => {
               return (<NavItem id={index} key={index} title={navItem.title} path={navItem.to} />);
             })}
           </NavActionsContainer>
         </div>
         <div className="fl g1 m-l-auto fl-c-m m-h-auto-m ac">
-          <Search className="search-box search_box-m m-hide" onSearch={(inputText: string) => { console.log(inputText); }}/>
+          <Search className="search-box search_box-m m-hide" onSearch={(inputText: string) => { inputText && navigate(`/e-commerce/products?searchQuery=${inputText}`) }} />
           <Balance value={100} />
           <CartButton cartCount={Object.keys(cartItems).length} />
           <div className="contact-section fl fl-c-m g1-m">

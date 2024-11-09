@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useCallback, useEffect, useRef, useState } from "react";
+import { FC, SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LiaArrowLeftSolid } from "react-icons/lia";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -7,14 +7,16 @@ import { fetchProducts } from "../../apis/ecommerce";
 import { iProduct } from "./Product";
 import "./SelectedProduct.css";
 import "./Ecommerce.css";
-import { addProductHandler, updateProductHandler } from "./utils";
-import { getCartItems } from "../../Redux/cartSlice";
+import { addProductHandler, removeProductHandler, updateProductHandler } from "./utils";
+import { getCartItems, getWishlist } from "../../Redux/cartSlice";
 import { useAppSelector } from "../../Redux/hooks";
 import Price from "./components/Price";
 import CountIndicator from "./components/CountIndicator";
 import Navbar from "./components/Navbar";
 import Loader from "../../components/Loader";
 import { BsCartPlusFill, BsChevronLeft } from "react-icons/bs";
+import { PageTypes } from "./Cart";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 interface iPrice {
   className?: string;
@@ -62,6 +64,7 @@ const SelectedProductWrapper = styled.div`
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
+    position: relative;
   }
 
   .sku {
@@ -112,6 +115,12 @@ const PriceContainer = styled.div`
   }
 `;
 
+const WishlistIconWrapper = styled.div`
+  position: absolute;
+  right:5px;
+bottom:1.75rem;
+`
+
 const SelectedProduct = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -122,7 +131,10 @@ const SelectedProduct = () => {
   const countRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0)
   const [loading,setLoading] = useState(true)
-
+  const wishlist = useAppSelector(getWishlist)
+  const isWishlisted = useMemo(()=>{
+  return wishlist && product && wishlist[product.id]?.count
+  },[wishlist,product]);
 
   useEffect(() => {
     id &&
@@ -178,25 +190,26 @@ return product && <CountIndicator product={product} cartItems={cartItems} />
             </div>
             <div className="img-container img-container_m">
               <img src={product.images[activeImageIndex]} alt={product.title} />
+              
+         
             </div>
-          </div>
+            </div>
         
           <div className="product-content">
-            <div className="title">{product.title}</div>
+            <div className="title">{product.title} <WishlistIconWrapper className="hide wl-icon-wrapper" onClick={(event)=>(event.stopPropagation(),(isWishlisted ? removeProductHandler(product?.id,wishlist,PageTypes.wishlist) : addProductHandler(product,wishlist,PageTypes.wishlist)))}> {isWishlisted ?<FaHeart color='#ef3c24d1' size={24} />: <FaRegHeart className='heart-icon' size={24} /> }</WishlistIconWrapper></div>
             <div className="sku">
               <span>SKU</span>
               {product.sku}
-            </div>
+            </div>    
             <div className="separator hide"/>
             <div className="fl ac g-3 total-compute-section g15-m">
               {computeCountIndicator()}
-                <Price text="total" value={(product?.price*(cartItems[product.id]?.count || 1)).toFixed(2) ?? product.price} />
-                {/* <Price text="total" value={(product?.price*(cartItems[product.id]?.count)) ?? product.price} /> */}
-               
+                <Price text="total" className="total-price-component" value={(product?.price*(cartItems[product.id]?.count || 0)).toFixed(2) ?? product.price} />
+                {/* <Price text="total" value={(product?.price*(cartItems[product.id]?.count)) ?? product.price} /> */}   
             </div>
 
             <div className="add_wishlist_btn_container fl ac">
-              <button className="btn" onClick={() => addProductHandler(product, cartItems)}>
+              <button className="btn" onClick={() => addProductHandler(product, cartItems,PageTypes.cart)}>
                 Add to Cart 
               </button>
      

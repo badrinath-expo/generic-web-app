@@ -16,7 +16,8 @@ const SearchContainer = styled.div`
     background-color: transparent;
     border: 0px;
     font-size: 14px;
-    color: #5f5f5f;
+    color: #595959;
+    letter-spacing: 1px;
 
     width: max-content;
     &:hover,
@@ -56,7 +57,7 @@ const inputChangeHandler = (e:any)=> setInputText(e.target.value)
   return (
     <SearchContainer className={css('fl',className)}>
       <input placeholder={placeHolderText??'Search...'} onChange={inputChangeHandler} />
-    <LuSearch className={css('search-icon',{'vis-hide':!inputText})} onClick={()=> (console.log(inputText),onSearch(inputText))} />
+    <LuSearch className={css('search-icon cp',{'vis-hide':!inputText})} onClick={()=> inputText && onSearch(inputText)} />
     </SearchContainer>
   )
 }

@@ -33,7 +33,7 @@ const Products = () => {
 
   useEffect(() => {
     const fetchMethod = searchQuery ? searchProduct(searchQuery) : fetchProducts({category}) 
-    fetchMethod.then((data) => setProducts(data.products as iProduct[])).catch(err => console.log(err)).finally(() => setLoading(false))
+    fetchMethod.then((data) => (data?.products?.length > 0) ? setProducts(data.products as iProduct[]): navigate('/e-commerce')).catch(err => (console.log(err), setLoading(false), navigate('/e-commerce'))).finally(() => setLoading(false))
     return () => { }
   }, [category,searchQuery])
 

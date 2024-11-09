@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import Navbar from "./components/Navbar";
 import styled from "styled-components";
 import css from "classnames";
@@ -34,6 +34,8 @@ import grid_beauty from "../../assets/grids/beauty.svg";
 
 import AuthButtons from "./components/AuthButtons";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../Redux/hooks";
+import { isUserLogged } from "../../Redux/cartSlice";
 
 const HomeContainer = styled.div`
   background-image: url(bg.jpg);
@@ -156,6 +158,13 @@ const GridContainer = styled.div`
 
 const EcommerceHome = () => {
   const navigate = useNavigate()
+  // const is_user_logged = useAppSelector(isUserLogged)
+  // if(!is_user_logged){
+  //   navigate('/login')
+  // }
+
+  // useEffect(()=> {
+  //   !is_user_logged  && navigate('/login')},[is_user_logged] )
   const carouselItems = useMemo(() => {
     return [
       {

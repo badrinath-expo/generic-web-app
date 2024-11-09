@@ -1,10 +1,13 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo, useState } from 'react'
 import { styled } from 'styled-components';
-import { FaRegHeart, FaStar } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import './Ecommerce.css'
-import { iCartItems } from './Cart';
+import { iCartItems, PageTypes } from './Cart';
 import { IcartAction } from '../../Redux/action';
+import { useAppSelector } from '../../Redux/hooks';
+import { getWishlist } from '../../Redux/cartSlice';
+import { addProductHandler, removeProductHandler } from './utils';
 export interface iProduct {
   id: number,
   title: string;
@@ -91,7 +94,14 @@ const RatingContainer = styled.div`
 
 
 const Product: FC<{ product: iProduct, count: number; }> = ({ product, count }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const wishlist = useAppSelector(getWishlist)
+  const isWishlisted = useMemo(()=>{
+  return wishlist && wishlist[product.id]?.count
+  },[wishlist,product]);
+  // const [isWishlisted,setIsWishlisted]= useState(false)
+  
+
   const handleProductClick = () => {
     navigate(`/product/${product.id}`)
   }
@@ -101,7 +111,7 @@ const Product: FC<{ product: iProduct, count: number; }> = ({ product, count }) 
       <div className="img-container"><img src={product.images[0]} alt={product.title} /></div>
       <div className="fl fl-c fl1">
         <LineDiv>
-          <WishlistIconWrapper><FaRegHeart className='heart-icon' /></WishlistIconWrapper>
+          <WishlistIconWrapper onClick={(event)=>(event.stopPropagation(),(isWishlisted ? removeProductHandler(product?.id,wishlist,PageTypes.wishlist) : addProductHandler(product,wishlist,PageTypes.wishlist)))}> {isWishlisted ?<FaHeart color='#ef3c24d1'/>: <FaRegHeart className='heart-icon' /> }</WishlistIconWrapper>
         </LineDiv>
         <div className='title'>{product.title.length > 20 ? product.title.slice(0, 20) + "..." : product.title}</div>
         <div className='description'>{product.description.length > 25 ? product.description.slice(0, 25) + "..." : product.description}</div>

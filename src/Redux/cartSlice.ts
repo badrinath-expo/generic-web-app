@@ -7,12 +7,18 @@ export interface CounterState {
   value: iCartItems;
   status: 'idle' | 'loading' | 'failed';
   userLogged:boolean;
+  loading:boolean;
+  orders:iCartItems[];
+  wishlist:iCartItems;
 }
 
 const initialState: CounterState = {
   value: {},
   status: 'idle',
-  userLogged : false
+  userLogged : false,
+  loading:false,
+  orders:[],
+  wishlist:{}
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -34,13 +40,23 @@ export const cartSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
+    setLoading:(state,action: PayloadAction<boolean>) =>{
+      state.loading = action.payload;
+    },
+    setUserLogged: (state) =>{
+      state.userLogged = true
+     },
     setCartItems:(state,action: PayloadAction<iCartItems>) =>{
         state.value = action.payload
     },
+    setOrders:(state,action: PayloadAction<iCartItems[]>) =>{
+      state.orders = action.payload
+  },
+  setWishlist:(state,action: PayloadAction<iCartItems>) =>{
+    state.wishlist = action.payload
+}
 
-    setUserLogged: (state) =>{
-     state.userLogged = true
-    }
+
     // increment: (state) => {
     //   // Redux Toolkit allows us to write "mutating" logic in reducers. It
     //   // doesn't actually mutate the state because it uses the Immer library,
@@ -73,13 +89,16 @@ export const cartSlice = createSlice({
  /// },
 });
 
-export const { setCartItems,setUserLogged } = cartSlice.actions;
+export const { setCartItems,setUserLogged,setLoading,setOrders,setWishlist } = cartSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const getCartItems = (state: RootState) => state.cart.value;
 export const isUserLogged = (state: RootState) => state.cart.userLogged;
+export const isLoading = (state: RootState) => state.cart.loading;
+export const getOrders = (state: RootState) => state.cart.orders;
+export const getWishlist = (state: RootState) => state.cart.wishlist;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.

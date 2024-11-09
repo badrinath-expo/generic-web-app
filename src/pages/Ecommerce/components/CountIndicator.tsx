@@ -3,10 +3,11 @@ import { iProduct } from "../Product";
 import { iCartItems } from "../Cart";
 import styled from "styled-components";
 import { addProductHandler,updateProductHandler } from "../utils";
-
+import css from 'classnames';
 interface iCountIndicator{
 product: iProduct;
 cartItems:iCartItems;
+className?:string;
 // addProductHandler: (product:iProduct,cartItems:iCartItems) => void;
 // removeProductHandler: (product:iProduct,cartItems:iCartItems) => void;
 }
@@ -39,9 +40,9 @@ padding:0% 5%;
       font-weight: 600;
     }
   `
-const CountIndicator:FC<iCountIndicator> = ({product,cartItems}) => {
+const CountIndicator:FC<iCountIndicator> = ({className,product,cartItems}) => {
     return (
-      <CountIndicatorWrapper className="fl fl-c ac count-wrapper">
+      <CountIndicatorWrapper className={css("fl fl-c ac count-wrapper",className)}>
         <div onClick={() => product && addProductHandler(product, cartItems)}>
           <div className="line line-1" />
           <div className="line line-2" />

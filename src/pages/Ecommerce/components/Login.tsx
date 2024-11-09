@@ -3,8 +3,9 @@ import styled from "styled-components";
 import logo from "../../../assets/Designer.png";
 import { AuthButton } from "./AuthButtons";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../../Redux/hooks";
-import { setUserLogged } from "../../../Redux/cartSlice";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+import { isLoading, setLoading, setUserLogged } from "../../../Redux/cartSlice";
+import Loader from "../../../components/Loader";
 const LoginContainer = styled.div`
   background: rgba(255, 255, 255, 0.29);
   box-shadow: 0 15px 10px rgba(66, 66, 66, 0.329);
@@ -96,14 +97,19 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
+  const is_loading = useAppSelector(isLoading)
   const emailInputHandler = (e: any) => setEmail(e.target.value);
   const passwodInputHandler = (e: any) => setPassword(e.target.value);
 
 
   const checkLogin=(email:string,password:string) =>{
+    dispatch(setLoading(true))
    if(email === 'test@gmail.com' && password === 'Test@123'){
-    dispatch(setUserLogged())
-    navigate('e-commerce')
+    setTimeout(()=>{
+      dispatch(setUserLogged())
+       dispatch(setLoading(false))
+      navigate('/e-commerce')
+    },500)
    }
   }
 
@@ -112,7 +118,7 @@ const loginHandler = useCallback(() =>{
 },[email,password])
   
   return (
-    <LoginContainer className="fl fl-c g1 ac jc h100-m">
+    <LoginContainer className="fl fl-c g1 ac jc h100-m"> 
       <img className="logo" src={logo} alt="" width={80} />
      <div className="welcome-txt">Welcome to Shop Online...</div>
       <InputWrapper>
@@ -140,7 +146,7 @@ const loginHandler = useCallback(() =>{
          <div className="pd"></div>
          Email: <code>test@gmail.com</code> <br/>
          Password : <code>Test@123</code>
-      </TestInputContainer>
+      </TestInputContainer> 
     </LoginContainer>
   );
 };

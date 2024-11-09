@@ -14,14 +14,23 @@ import Cart from './pages/Ecommerce/Cart';
 import EcommerceHome from './pages/Ecommerce/EcommerceHome';
 import Login from './pages/Ecommerce/components/Login';
 import OrderPlaced from './pages/Ecommerce/components/OrderPlaced';
+import Orders from './pages/Ecommerce/components/Orders';
+import { useAppDispatch, useAppSelector } from './Redux/hooks';
+import { isLoading, isUserLogged } from './Redux/cartSlice';
+import Loader from './components/Loader';
 
 
 function App() {
   const navigate = useNavigate();
+  const is_loading = useAppSelector(isLoading)
+
+  if(is_loading){
+    return <Loader/>
+  }
 
   return (
     <Routes>
-      <Route path='/' element={<Login />} />
+      <Route path='/' element={<EcommerceHome />} />
       <Route path="analytics" element={<Analytics />} />
       <Route path="portfolio" element={<Portfolio />} />
       <Route path="e-commerce" element={<EcommerceHome />} />
@@ -32,6 +41,8 @@ function App() {
       <Route path="about" element={<About />} />
       <Route path='login' element = {<Login/>} />
       <Route path='cart/order-placed' element = {<OrderPlaced />} />
+      <Route path='order' element = {<Cart />} />
+      <Route path='wishlist' element = {<Cart />} />
     </Routes>
   );
 }
