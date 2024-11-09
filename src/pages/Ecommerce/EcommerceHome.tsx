@@ -265,7 +265,7 @@ const EcommerceHome = () => {
         <Carousel />
         <LogoSlider />
         <Grid />
-        <AuthButtons title1="Login" title2="SignUp"/>
+        {/* <AuthButtons title1="Login" title2="SignUp"/> */}
       </div>
     </HomeContainer>
   );
