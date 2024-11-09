@@ -4,6 +4,8 @@ import styled from "styled-components";
 import css from "classnames";
 import "./Ecommerce.css";
 import { BsChevronRight } from "react-icons/bs";
+import { FiExternalLink } from "react-icons/fi";
+
 //carousel
 import clothing from "../../assets/carousel/clothing.jpg";
 import accessories from "../../assets/carousel/accessories.jpg";
@@ -45,7 +47,7 @@ const HomeContainer = styled.div`
 `;
 const CarouselContainer = styled.div`
   padding: 1rem;
-  gap: 8px;
+  gap: 18px;
 `;
 
 const CarouselItem = styled.div`
@@ -71,24 +73,27 @@ const CarouselItem = styled.div`
   }
 
   .title {
-    font-size: 22px;
+    font-size: 25px;
     font-weight: 350;
     color: #000000;
     padding: 4px 8px;
     border-radius: 8px;
-    cursor: pointer;
     position: absolute;
     bottom: 0;
     left: auto;
     right: auto;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.336);
-    -webkit-backdrop-filter: blur(6.3px);
+    text-shadow: 1px 1px #ffffff46;
+    background: rgba(255, 255, 255, 0.336); 
+  -webkit-backdrop-filter: blur(6.3px);
     backdrop-filter: blur(6.3px);
   }
 
+
+
   &:hover {
-    flex: 4;
+    /* flex: 4; */
+    scale:1.05;
     transition: all 0.5s linear;
     box-shadow: 0px 20px 12px 0px rgba(1, 1, 1, 0.25);
     
@@ -103,6 +108,7 @@ const CarouselItem = styled.div`
     align-items: center;
     gap:0.5rem;
     display: none;
+    text-shadow: none;
   }
 `;
 
@@ -158,13 +164,6 @@ const GridContainer = styled.div`
 
 const EcommerceHome = () => {
   const navigate = useNavigate()
-  // const is_user_logged = useAppSelector(isUserLogged)
-  // if(!is_user_logged){
-  //   navigate('/login')
-  // }
-
-  // useEffect(()=> {
-  //   !is_user_logged  && navigate('/login')},[is_user_logged] )
   const carouselItems = useMemo(() => {
     return [
       {
@@ -206,7 +205,7 @@ const EcommerceHome = () => {
             >
               <div className="title fl ac">{carouselItem.title}</div>
               <img className="carousel_item" src={carouselItem.img_url} />
-              <div className={css("title go-btn m-hide hover-display",{'m-flex': activeCarouselItem === index})} onClick={()=>navigate(carouselItem.path) }>GO <BsChevronRight /></div>
+              <div className={css("title cp go-btn m-hide hover-display",{'m-flex': activeCarouselItem === index})} onClick={()=>navigate(carouselItem.path) }>GO <BsChevronRight /></div>
             </CarouselItem>
           );
         })}
