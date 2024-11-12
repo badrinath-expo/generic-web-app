@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/generic-web-app/static/css/main.cd26be97.css",
-    "main.js": "/generic-web-app/static/js/main.1c0b46c5.js",
+    "main.js": "/generic-web-app/static/js/main.5c827e34.js",
     "static/js/453.f472f575.chunk.js": "/generic-web-app/static/js/453.f472f575.chunk.js",
     "static/media/cloth.svg": "/generic-web-app/static/media/cloth.4de1a42e4c07797c497583f0f1e52d49.svg",
+    "static/media/accessories.jpg": "/generic-web-app/static/media/accessories.07d92966081114bfdcf5.jpg",
+    "static/media/tech.jpg": "/generic-web-app/static/media/tech.c2fd58ef566df10717e7.jpg",
     "static/media/clothing.jpg": "/generic-web-app/static/media/clothing.766375447aa8c300e761.jpg",
     "static/media/fashion.jpg": "/generic-web-app/static/media/fashion.f7dbb20db733560b1a3f.jpg",
-    "static/media/tech.jpg": "/generic-web-app/static/media/tech.3eca24ea29399043ca7b.jpg",
-    "static/media/accessories.jpg": "/generic-web-app/static/media/accessories.8954794a590f966c43bb.jpg",
     "static/media/Designer.png": "/generic-web-app/static/media/Designer.f3900dc3df8ab9ce6402.png",
     "static/media/smartphone.svg": "/generic-web-app/static/media/smartphone.8b73de1062e6b33280de7adf22664b01.svg",
     "static/media/shoe.svg": "/generic-web-app/static/media/shoe.ca00a66dc4fd8f9c264a4c8a2da82708.svg",
@@ -26,11 +26,11 @@
     "index.html": "/generic-web-app/index.html",
     "static/media/Apple_logo_black.svg": "/generic-web-app/static/media/Apple_logo_black.fd5844ff7d2dd35961e285c1d45cf481.svg",
     "main.cd26be97.css.map": "/generic-web-app/static/css/main.cd26be97.css.map",
-    "main.1c0b46c5.js.map": "/generic-web-app/static/js/main.1c0b46c5.js.map",
+    "main.5c827e34.js.map": "/generic-web-app/static/js/main.5c827e34.js.map",
     "453.f472f575.chunk.js.map": "/generic-web-app/static/js/453.f472f575.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cd26be97.css",
-    "static/js/main.1c0b46c5.js"
+    "static/js/main.5c827e34.js"
   ]
 }
